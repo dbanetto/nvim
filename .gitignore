@@ -1,0 +1,4 @@
+autoload/
+bundles/
+.init.vim-rplugin~
+.netrwhist
