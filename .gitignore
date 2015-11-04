@@ -1,4 +1,5 @@
 autoload/
 bundles/
+.undofile/
 .init.vim-rplugin~
 .netrwhist
