@@ -15,6 +15,7 @@ if count(g:bundle_groups, 'general')
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-startify'
   Plug 'Shougo/unite.vim'
+  Plug 'zyphrus/unite-tasklist'
   Plug 'Shougo/vimfiler.vim'
   Plug 'matze/vim-move'
   Plug 'airblade/vim-gitgutter'
@@ -87,16 +88,14 @@ let g:unite_prompt='> '
 let g:unite_split_rule = 'botright'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source(
-      \ 'file_rec', 'matchers',
-      \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
+      \ 'file_rec,file_rec/neovim', 'matchers',
+      \ ['matcher_regexp', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec<CR>
-nmap <silent>cb :Unite -start-insert -buffer-name=buffers buffer<CR>
-nmap <silent>ct :Unite -start-insert -buffer-name=tabs tab<CR>
+nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
+nmap <silent>cb :Unite -buffer-name=buffers buffer<CR>
+nmap <silent>ct :Unite -buffer-name=tabs tab<CR>
 nmap <silent>cl :Unite -buffer-name=tasklist tasklist<CR>
-nmap <silent>cf :Unite -start-insert -buffer-name=files file<CR>
-nmap <silent>cr :Unite -start-insert -buffer-name=mru file_mru<CR>
 nmap <silent>c; :Unite -start-insert -buffer-name=commands command<CR>
 
 " vimfiler
@@ -121,6 +120,9 @@ call vimfiler#custom#profile('default', 'context', {
 
 " deoplete
 let g:deoplete_at_startup = 1
+
+" neomake
+autocmd! BufWritePost * Neomake
 
 " ultisnips
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -158,6 +160,8 @@ let g:gitgutter_sign_modified = '*'
 let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_realtime = 0
+nmap <silent> [h :GitGutterPrevHunk<CR>zz<CR>
+nmap <silent> ]h :GitGutterNextHunk<CR>zz<CR>
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
