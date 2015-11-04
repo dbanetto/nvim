@@ -3,6 +3,7 @@ set virtualedit=onemore
 set spelllang=en
 set splitbelow
 set splitright
+set number
 
 " Disable back & swap
 set nobackup
