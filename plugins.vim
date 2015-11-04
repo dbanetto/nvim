@@ -24,7 +24,6 @@ if count(g:bundle_groups, 'general')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'zyphrus/tabline.vim'
 endif
 
 if count(g:bundle_groups, 'devel')
