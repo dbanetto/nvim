@@ -4,6 +4,7 @@ set spelllang=en
 set splitbelow
 set splitright
 set number
+set hidden
 
 " Disable back & swap
 set nobackup
