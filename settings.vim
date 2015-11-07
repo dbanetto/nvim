@@ -91,6 +91,9 @@ nmap <silent> # #zz
 nmap <silent> g* g*zz
 nmap <silent> g# g#zz
 
+" clear hlsearch
+nmap <silent> <leader>/ :let @/=""<CR>
+
 " autocmd
 
 " FileType settings

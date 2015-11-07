@@ -31,6 +31,7 @@ if count(g:bundle_groups, 'devel')
   Plug 'benekastah/neomake'
   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
+  Plug 'Chiel92/vim-autoformat'
 endif
 
 if count(g:bundle_groups, 'syntax')
@@ -159,8 +160,8 @@ let g:gitgutter_sign_modified = '*'
 let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_realtime = 0
-nmap <silent> [h :GitGutterPrevHunk<CR>zz<CR>
-nmap <silent> ]h :GitGutterNextHunk<CR>zz<CR>
+nmap [h :GitGutterPrevHunk<CR>zz
+nmap ]h :GitGutterNextHunk<CR>zz
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
