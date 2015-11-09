@@ -1,4 +1,5 @@
 " general
+set title
 set virtualedit=onemore
 set spelllang=en
 set splitbelow
@@ -14,10 +15,6 @@ set noswapfile
 " diff
 set diffopt+=iwhite
 set diffopt=filler
-
-" colorscheme
-set background=dark
-colorscheme hybrid
 
 " wildmode
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem

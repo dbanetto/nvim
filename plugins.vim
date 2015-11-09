@@ -57,6 +57,10 @@ call plug#end()
 
 " plugin configuration
 
+" colorscheme
+set background=dark
+colorscheme hybrid
+
 " airline
 let g:airline_extensions = ['branch', 'tabline']
 let g:airline#extensions#branch#enabled = 1
@@ -151,8 +155,8 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " racer
-let g:racer_cmd = "$NVIM_HOME/bundles/racer-vim/target/release/racer"
-let $RUST_SRC_PATH="/usr/src/rust/"
+let g:racer_cmd = $NVIM_HOME."/bundles/racer/target/release/racer"
+let $RUST_SRC_PATH="/usr/src/rust/src"
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'
