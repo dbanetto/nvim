@@ -7,51 +7,50 @@ endif
 
 call plug#begin(expand('$NVIM_HOME/bundles/'))
 
-if !exists('g:bundle_groups')
-  let g:bundle_groups=['general', 'colorscheme', 'devel', 'syntax']
-endif
+" general
+Plug 'bling/vim-airline'
+Plug 'mhinz/vim-startify'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/unite.vim'
+Plug 'zyphrus/unite-tasklist'
+Plug 'Shougo/vimfiler.vim'
+Plug 'matze/vim-move'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'terryma/vim-multiple-cursors'
 
-if count(g:bundle_groups, 'general')
-  Plug 'bling/vim-airline'
-  Plug 'mhinz/vim-startify'
-  Plug 'Shougo/unite.vim'
-  Plug 'zyphrus/unite-tasklist'
-  Plug 'Shougo/vimfiler.vim'
-  Plug 'matze/vim-move'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-repeat'
-  Plug 'terryma/vim-multiple-cursors'
-endif
+" dev
+Plug 'Shougo/deoplete.nvim'
+Plug 'benekastah/neomake'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Chiel92/vim-autoformat'
 
-if count(g:bundle_groups, 'devel')
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'benekastah/neomake'
-  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-  Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
-  Plug 'Chiel92/vim-autoformat'
-endif
+" sys dev
+Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
 
-if count(g:bundle_groups, 'syntax')
-  Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
-  Plug 'JulesWang/css.vim', {'for': 'css'}
-  Plug 'tpope/vim-git'
-  Plug 'othree/html5.vim', {'for': 'html'}
-  Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-  Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
-  Plug 'mitsuhiko/vim-python-combined', {'for': 'python'}
-  Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
-  Plug 'rust-lang/rust.vim'
-  Plug 'cespare/vim-toml', {'for': 'toml'}
-  Plug 'vim-scripts/django.vim'
-  Plug 'avakhov/vim-yaml', {'for': 'yaml'}
-endif
+" web dev
+Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
+Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
+Plug 'vim-scripts/django.vim'
 
-if count(g:bundle_groups, 'colorscheme')
-  Plug 'w0ng/vim-hybrid'
-endif
+" syntax
+Plug 'tpope/vim-git'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
+Plug 'JulesWang/css.vim', {'for': 'css'}
+Plug 'othree/html5.vim', {'for': 'html'}
+Plug 'mitsuhiko/vim-python-combined', {'for': 'python'}
+Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
+Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
+Plug 'avakhov/vim-yaml', {'for': 'yaml'}
+
+" colorscheme
+Plug 'w0ng/vim-hybrid'
 
 call plug#end()
 
@@ -93,7 +92,7 @@ let g:unite_split_rule = 'botright'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source(
       \ 'file_rec,file_rec/neovim', 'matchers',
-      \ ['matcher_regexp', 'matcher_hide_hidden_files','converter_relative_word',
+      \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
 nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
@@ -109,10 +108,9 @@ let g:vimfiler_enable_clipboard = 0
 let g:vimfiler_restore_alternate_file = 1
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimfiler_tree_indentation = 1
-let g:vimfiler_tree_leaf_icon = "┆"
+let g:vimfiler_tree_leaf_icon = "|"
 let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_ignore_pattern =
-      \ '^\%(\..*\|node_modules\|.*\.pyc\)$'
+let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$']
 nmap <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
 
 call vimfiler#custom#profile('default', 'context', {
@@ -123,7 +121,7 @@ call vimfiler#custom#profile('default', 'context', {
       \ })
 
 " deoplete
-let g:deoplete_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 " neomake
 autocmd! BufWritePost * Neomake
