@@ -21,6 +21,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'mbbill/undotree'
 
 " dev
 Plug 'Shougo/deoplete.nvim'
@@ -164,6 +165,11 @@ let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_realtime = 0
 nmap [h :GitGutterPrevHunk<CR>zz
 nmap ]h :GitGutterNextHunk<CR>zz
+
+" undotree
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_WindowLayout = 3
+nmap <silent>U :UndotreeToggle<CR>
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
