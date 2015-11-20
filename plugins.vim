@@ -104,15 +104,9 @@ nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_expand_jump_to_first_child = 1
-let g:vimfiler_enable_clipboard = 0
-let g:vimfiler_restore_alternate_file = 1
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimfiler_tree_indentation = 1
-let g:vimfiler_tree_leaf_icon = "|"
 let g:vimfiler_marked_file_icon = '✓'
 let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$']
-nmap <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
+nmap <silent> <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
 
 call vimfiler#custom#profile('default', 'context', {
       \  'safe': 0,
@@ -154,8 +148,8 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " racer
-let g:racer_cmd = $NVIM_HOME."/bundles/racer/target/release/racer"
-let $RUST_SRC_PATH="/usr/src/rust/src"
+let g:racer_cmd = $NVIM_HOME.'/bundles/racer/target/release/racer'
+let $RUST_SRC_PATH='/usr/src/rust/src'
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'
