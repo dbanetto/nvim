@@ -97,10 +97,10 @@ call unite#custom#source(
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
 nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
-nmap <silent>cb :Unite -buffer-name=buffers buffer<CR>
-nmap <silent>ct :Unite -buffer-name=tabs tab<CR>
-nmap <silent>cl :Unite -buffer-name=tasklist tasklist<CR>
-nmap <silent>c; :Unite -start-insert -buffer-name=commands command<CR>
+nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
+nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
+nmap <silent><leader>cl :Unite -buffer-name=tasklist tasklist<CR>
+nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
