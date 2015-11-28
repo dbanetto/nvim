@@ -94,17 +94,15 @@ nmap <silent> <leader>/ :let @/=""<CR>
 " autocmd
 
 " FileType settings
-augroup filetypedetect
-  au FileType markdown,pandoc setl wrap tw=79 spell
-  au FileType python setl ts=4 sw=4 sts=4 et
-  au FileType ruby setl ts=2 sw=2 sts=2 et
-  au FileType javascript,json,coffeescript setl ts=2 sw=2 sts=2
-  au FileType html,css setl ts=2 sw=2 sts=2
-  au FileType vim setl ts=2 sw=2 sts=2
-  au FileType plaintex setl wrap tw=79 fo=tcqor
-  au FileType cpp,c setl cindent
-  au FileType make setl ts=4 sts=4 sw=4 noet list
-  au FileType gitcommit setl wrap tw=72 spell
-augroup END
+au FileType markdown,pandoc setl wrap tw=79 spell
+au FileType python setl ts=4 sw=4 sts=4 et
+au FileType ruby setl ts=2 sw=2 sts=2 et
+au FileType javascript,json,coffeescript setl ts=2 sw=2 sts=2
+au FileType html,css setl ts=2 sw=2 sts=2
+au FileType vim setl ts=2 sw=2 sts=2
+au FileType plaintex setl wrap tw=79 fo=tcqor
+au FileType cpp,c setl cindent
+au FileType make setl ts=4 sts=4 sw=4 noet list
+au FileType gitcommit setl wrap tw=72 spell
 
 " vim: set ts=2 sw=2 expandtab:
