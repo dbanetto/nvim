@@ -22,6 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'mbbill/undotree'
+Plug 'Shougo/unite-session'
 
 " dev
 Plug 'Shougo/deoplete.nvim'
@@ -35,6 +36,7 @@ Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-
 " web dev
 Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
 Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
+Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
 Plug 'vim-scripts/django.vim'
 
 " syntax
@@ -96,7 +98,7 @@ call unite#custom#source(
       \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
+nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim2<CR>
 nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
 nmap <silent><leader>cl :Unite -buffer-name=tasklist tasklist<CR>
@@ -120,6 +122,9 @@ let g:deoplete#enable_at_startup = 1
 
 " neomake
 autocmd! BufWritePost * Neomake
+
+" autoformat
+nmap <leader>ff :Autoformat<CR>
 
 " ultisnips
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -164,6 +169,17 @@ nmap ]h :GitGutterNextHunk<CR>zz
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout = 3
 nmap <silent>U :UndotreeToggle<CR>
+
+" jedi
+let g:jedi#goto_command = "<leader>pd"
+let g:jedi#goto_assignments_command = "<leader>pg"
+let g:jedi#goto_definitions_command = "<leader>pd"
+let g:jedi#completions_command = ""
+let g:jedi#documentation_command = "<leader>pk"
+let g:jedi#usages_command = "<leader>pn"
+let g:jedi#rename_command = "<leader>pr"
+let g:jedi#popup_on_dot = 0
+let g:jedi#auto_vim_configuration = 0
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS

@@ -68,6 +68,8 @@ set matchtime=2
 set showmatch
 set smartcase
 
+set completeopt-=preview
+
 " map
 let g:mapleader=","
 
@@ -90,6 +92,9 @@ nmap <silent> g# g#zz
 
 " clear hlsearch
 nmap <silent> <leader>/ :let @/=""<CR>
+
+" cd to current file
+nmap <leader>cd :cd %:h<CR>:pwd<CR>
 
 " autocmd
 
