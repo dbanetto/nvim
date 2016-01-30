@@ -8,7 +8,7 @@ endif
 call plug#begin(expand('$NVIM_HOME/bundles/'))
 
 " general
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/unite.vim'
@@ -94,11 +94,12 @@ let g:unite_prompt='> '
 let g:unite_split_rule = 'botright'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source(
-      \ 'file_rec,file_rec/neovim', 'matchers',
+      \ 'file_rec,file_rec/git,file_rec/neovim,file_rec/neovim2', 'matchers',
       \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
 nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim2<CR>
+nmap <silent> <A-p> :Unite -start-insert -buffer-name=files file_rec/git<CR>
 nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
 nmap <silent><leader>cl :Unite -buffer-name=tasklist tasklist<CR>
@@ -107,7 +108,7 @@ nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$']
+let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$', '^__.*__$']
 nmap <silent> <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
 
 call vimfiler#custom#profile('default', 'context', {
