@@ -5,4 +5,4 @@ endif
 source $NVIM_HOME/settings.vim
 source $NVIM_HOME/plugins.vim
 
-" vim: set ts=2 sw=2 expandtab:
+" vim:ts=2:sw=2:expandtab:

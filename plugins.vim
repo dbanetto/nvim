@@ -20,9 +20,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'mbbill/undotree'
 Plug 'Shougo/unite-session'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " dev
 Plug 'Shougo/deoplete.nvim'
@@ -41,6 +41,7 @@ Plug 'vim-scripts/django.vim'
 
 " syntax
 Plug 'tpope/vim-git'
+Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
 Plug 'JulesWang/css.vim', {'for': 'css'}
@@ -76,6 +77,7 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
 
+let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_c = ''
@@ -182,6 +184,12 @@ let g:jedi#rename_command = "<leader>pr"
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_vim_configuration = 0
 
+" vim-move
+let g:move_key_modifier = 'C-S'
+
+" vim-surround
+let g:surround_no_insert_mappings = 0
+
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType haskell       setlocal omnifunc=necoghc#omnifunc
@@ -191,4 +199,4 @@ autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
-" vim: set ts=2 sw=2 expandtab:
+" vim:ts=2:sw=2:expandtab:

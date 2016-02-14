@@ -6,6 +6,7 @@ set splitbelow
 set splitright
 set number
 set hidden
+set autoread
 
 " Disable back & swap
 set nobackup
@@ -41,7 +42,7 @@ endif
 set autoindent
 set copyindent
 
-" tab width
+" default tab settings
 set smarttab
 set expandtab
 set shiftwidth=4
@@ -81,6 +82,31 @@ noremap L $
 nmap bd :bdelete<CR>
 nmap bn :bnext<CR>
 nmap bp :bprevious<CR>
+" closes current buffer http://stackoverflow.com/questons/4298910
+nmap bc :b#<bar>bd#<CR>
+
+" tabs
+nmap td :tabclose<CR>
+nmap tw :tabnew<CR>
+nmap tn :tabnext<CR>
+nmap tp :tabprevious<CR>
+
+" nvim terminal
+if has('nvim')
+  tmap <Esc> <C-\><C-n>
+
+  " pane navigation
+  tmap <A-h> <C-\><C-n><C-w>h
+  tmap <A-j> <C-\><C-n><C-w>j
+  tmap <A-k> <C-\><C-n><C-w>k
+  tmap <A-l> <C-\><C-n><C-w>l
+endif
+
+" pane navigation
+nmap <A-h> <C-w>h
+nmap <A-j> <C-w>j
+nmap <A-k> <C-w>k
+nmap <A-l> <C-w>l
 
 " Keep search pattern at the center of the screen
 nmap <silent> n nzz
@@ -96,7 +122,13 @@ nmap <silent> <leader>/ :let @/=""<CR>
 " cd to current file
 nmap <leader>cd :cd %:h<CR>:pwd<CR>
 
+" toggle list
+nmap <leader>tl :set list!<CR>:set list?<CR>
+
 " autocmd
+
+" normal mode when focus is lost
+au FocusLost * call feedkeys("\<C-\>\<C-n>") 
 
 " FileType settings
 au FileType markdown,pandoc setl wrap tw=79 spell
@@ -110,4 +142,4 @@ au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit setl wrap tw=72 spell
 
-" vim: set ts=2 sw=2 expandtab:
+" vim:ts=2:sw=2:expandtab:
