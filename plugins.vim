@@ -81,7 +81,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_c = ''
-let g:airline_theme='jellybeans'
+let g:airline_theme='tomorrow'
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -138,9 +138,10 @@ let g:UltiSnipsEditSplit='vertical'
 " startify
 autocmd User Startified setlocal buftype=
 let g:startify_enable_unsafe = 1
-let g:startify_change_to_dir = 0
+let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_relative_path = 1
+let g:startify_session_dir = $NVIM_HOME.'/sessions'
 let g:startify_custom_header = map(split(system('pwd'), '\n'), '"   ". v:val') + ['','']
 let g:startify_custom_indices = map(range(1,100), 'string(v:val)')
 let g:startify_list_order = [
@@ -148,7 +149,15 @@ let g:startify_list_order = [
       \ 'dir',
       \ ['   Most recently used:'],
       \ 'files',
+      \ ['   Sessions:'],
+      \ 'sessions',
       \ ]
+let g:startify_skiplist = [
+        \ 'COMMIT_EDITMSG',
+        \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
+        \ 'bundle/.*/doc',
+        \ '\s+',
+        \ ]
 
 " ruby
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
