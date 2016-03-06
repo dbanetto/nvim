@@ -125,6 +125,9 @@ nmap <leader>cd :cd %:h<CR>:pwd<CR>
 " toggle list
 nmap <leader>tl :set list!<CR>:set list?<CR>
 
+" toggle spell
+nmap <leader>ts :set spell!<CR>:set spell?<CR>
+
 " autocmd
 
 " normal mode when focus is lost

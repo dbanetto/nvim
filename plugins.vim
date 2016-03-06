@@ -27,6 +27,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " dev
 Plug 'Shougo/deoplete.nvim'
 Plug 'benekastah/neomake'
+Plug 'lilydjwg/tagbar'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 
@@ -153,11 +154,11 @@ let g:startify_list_order = [
       \ 'sessions',
       \ ]
 let g:startify_skiplist = [
-        \ 'COMMIT_EDITMSG',
-        \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
-        \ 'bundle/.*/doc',
-        \ '\s+',
-        \ ]
+      \ 'COMMIT_EDITMSG',
+      \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
+      \ 'bundle/.*/doc',
+      \ '\s+',
+      \ ]
 
 " ruby
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -198,6 +199,13 @@ let g:move_key_modifier = 'C-S'
 
 " vim-surround
 let g:surround_no_insert_mappings = 0
+
+" tagbar
+let g:tagbar_width = 30
+let g:tagbar_autofocus = 1
+let g:tagbar_indent = 1
+let g:tagbar_iconchars = ['+', '-']
+nmap <C-T> :TagbarToggle<CR>
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
