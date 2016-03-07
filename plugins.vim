@@ -39,6 +39,8 @@ Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
 Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
 Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
 Plug 'vim-scripts/django.vim'
+Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'mustache/vim-mustache-handlebars'
 
 " syntax
 Plug 'tpope/vim-git'
@@ -111,7 +113,7 @@ nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$', '^__.*__$']
+let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$', '^__.*__$', '^node_modules$']
 nmap <silent> <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
 
 call vimfiler#custom#profile('default', 'context', {
