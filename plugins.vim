@@ -41,6 +41,7 @@ Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
 Plug 'vim-scripts/django.vim'
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'digitaltoad/vim-pug'
 
 " syntax
 Plug 'tpope/vim-git'
@@ -99,11 +100,11 @@ let g:unite_prompt='> '
 let g:unite_split_rule = 'botright'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source(
-      \ 'file_rec,file_rec/git,file_rec/neovim,file_rec/neovim2', 'matchers',
+      \ 'file_rec,file_rec/git,file_rec/neovim', 'matchers',
       \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim2<CR>
+nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
 nmap <silent> <A-p> :Unite -start-insert -buffer-name=files file_rec/git<CR>
 nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
