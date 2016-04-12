@@ -4,3 +4,4 @@ sessions/
 .undofile/
 .init.vim-rplugin~
 .netrwhist
+.DS_Store

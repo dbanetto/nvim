@@ -43,8 +43,12 @@ Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 
+" writing
+Plug 'vim-pandoc/vim-pandoc'
+
 " syntax
 Plug 'tpope/vim-git'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
@@ -209,6 +213,10 @@ let g:tagbar_autofocus = 1
 let g:tagbar_indent = 1
 let g:tagbar_iconchars = ['+', '-']
 nmap <C-T> :TagbarToggle<CR>
+
+" pandoc
+let g:pandoc#modules#disabled =["folding"]
+let g:pandoc#syntax#conceal#use = 0
 
 " omnicompleteion
 autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
