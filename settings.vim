@@ -128,6 +128,11 @@ nmap <leader>tl :set list!<CR>:set list?<CR>
 " toggle spell
 nmap <leader>ts :set spell!<CR>:set spell?<CR>
 
+" toggle relative number
+nmap <leader>tr :set relativenumber!<CR>:set relativenumber?<CR>
+
+" toggle relative number
+nmap <leader>tw :set wrap!<CR>:set wrap?<CR>
 " autocmd
 
 " normal mode when focus is lost
