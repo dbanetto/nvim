@@ -40,8 +40,10 @@ Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
 Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
 Plug 'vim-scripts/django.vim'
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'moll/vim-node', {'for': 'javascript'}
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
+Plug 'basyura/unite-rails'
 
 " writing
 Plug 'vim-pandoc/vim-pandoc'
@@ -114,6 +116,11 @@ nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
 nmap <silent><leader>cl :Unite -buffer-name=tasklist tasklist<CR>
 nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
+" unite-rails
+nmap <silent><leader>cr :Unite -start-insert -buffer-name=rails rails/
+nmap <silent><leader>crm :Unite -start-insert -buffer-name=rails rails/model<CR>
+nmap <silent><leader>crc :Unite -start-insert -buffer-name=rails rails/controller<CR>
+nmap <silent><leader>crv :Unite -start-insert -buffer-name=rails rails/view<CR>
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
