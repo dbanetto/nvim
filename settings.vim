@@ -69,6 +69,10 @@ set matchtime=2
 set showmatch
 set smartcase
 
+" folding
+set foldmethod=indent
+set foldlevelstart=1
+
 set completeopt-=preview
 
 " map
@@ -90,6 +94,8 @@ nmap td :tabclose<CR>
 nmap tw :tabnew<CR>
 nmap tn :tabnext<CR>
 nmap tp :tabprevious<CR>
+
+nnoremap K <nop>
 
 " nvim terminal
 if has('nvim')
@@ -141,13 +147,15 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>")
 " FileType settings
 au FileType markdown,pandoc setl wrap tw=79 spell
 au FileType python setl ts=4 sw=4 sts=4 et
-au FileType ruby setl ts=2 sw=2 sts=2 et
-au FileType javascript,json,coffeescript setl ts=2 sw=2 sts=2
+au FileType ruby,erb setl ts=2 sw=2 sts=2 et
+au FileType javascript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
 au FileType html,css setl ts=2 sw=2 sts=2
 au FileType vim setl ts=2 sw=2 sts=2
 au FileType plaintex setl wrap tw=79 fo=tcqor
 au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit setl wrap tw=72 spell
+
+au FileType help nmap q :q<CR>
 
 " vim:ts=2:sw=2:expandtab:

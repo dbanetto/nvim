@@ -41,6 +41,7 @@ Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
 Plug 'vim-scripts/django.vim'
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'moll/vim-node', {'for': 'javascript'}
+Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 Plug 'basyura/unite-rails'
@@ -106,11 +107,11 @@ let g:unite_prompt='> '
 let g:unite_split_rule = 'botright'
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source(
-      \ 'file_rec,file_rec/git,file_rec/neovim', 'matchers',
+      \ 'file_rec,file_rec/async,file_rec/git,file_rec/neovim', 'matchers',
       \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
+nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
 nmap <silent> <A-p> :Unite -start-insert -buffer-name=files file_rec/git<CR>
 nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
@@ -127,6 +128,8 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_marked_file_icon = '✓'
 let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$', '^__.*__$', '^node_modules$']
 nmap <silent> <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
+" project draw-like functionality
+nmap <silent> - :VimFilerBufferDir -find -force-quit -buffer-name=drawer<CR>
 
 call vimfiler#custom#profile('default', 'context', {
       \  'safe': 0,
