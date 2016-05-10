@@ -26,7 +26,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " dev
 Plug 'Shougo/deoplete.nvim'
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
