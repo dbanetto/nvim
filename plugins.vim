@@ -7,6 +7,7 @@ endif
 
 call plug#begin(expand('$NVIM_HOME/bundles/'))
 
+"" Plugins
 " general
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
@@ -69,7 +70,7 @@ Plug 'w0ng/vim-hybrid'
 
 call plug#end()
 
-" plugin configuration
+"" Configuration
 
 " colorscheme
 set background=dark
@@ -184,7 +185,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
 " racer
 let g:racer_cmd = $NVIM_HOME.'/bundles/racer/target/release/racer'
-let $RUST_SRC_PATH='/usr/src/rust/src'
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'

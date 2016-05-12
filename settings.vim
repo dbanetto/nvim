@@ -75,7 +75,7 @@ set foldlevelstart=1
 
 set completeopt-=preview
 
-" map
+"" mappings
 let g:mapleader=","
 
 " jump to start/end of line
@@ -95,7 +95,8 @@ nmap tw :tabnew<CR>
 nmap tn :tabnext<CR>
 nmap tp :tabprevious<CR>
 
-nnoremap K <nop>
+nnoremap K <C-U>zz
+nnoremap J <C-D>zz
 
 " nvim terminal
 if has('nvim')
@@ -139,15 +140,23 @@ nmap <leader>tr :set relativenumber!<CR>:set relativenumber?<CR>
 
 " toggle relative number
 nmap <leader>tw :set wrap!<CR>:set wrap?<CR>
-" autocmd
 
+"" commands
+command! W w!
+command! Q q!
+
+" training
+command! Wq echo "Use :x"
+command! WQ echo "Use :x"
+
+"" autocmd
 " normal mode when focus is lost
 au FocusLost * call feedkeys("\<C-\>\<C-n>") 
 
 " FileType settings
 au FileType markdown,pandoc setl wrap tw=79 spell
 au FileType python setl ts=4 sw=4 sts=4 et
-au FileType ruby,erb setl ts=2 sw=2 sts=2 et
+au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
 au FileType javascript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
 au FileType html,css setl ts=2 sw=2 sts=2
 au FileType vim setl ts=2 sw=2 sts=2
