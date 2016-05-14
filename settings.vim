@@ -88,6 +88,7 @@ nmap bn :bnext<CR>
 nmap bp :bprevious<CR>
 " closes current buffer http://stackoverflow.com/questons/4298910
 nmap bc :b#<bar>bd#<CR>
+nmap bl :b#<CR>
 
 " tabs
 nmap td :tabclose<CR>
