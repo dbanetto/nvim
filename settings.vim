@@ -99,6 +99,10 @@ nmap tp :tabprevious<CR>
 nnoremap K <C-U>zz
 nnoremap J <C-D>zz
 
+" stay in visual mode when indenting
+vmap > >gv
+vmap < <gv
+
 " nvim terminal
 if has('nvim')
   tmap <Esc> <C-\><C-n>

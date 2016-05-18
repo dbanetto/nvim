@@ -5,6 +5,10 @@ if empty(glob('$NVIM_HOME/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
+function! DoRemotePlugins(arg)
+  UpdateRemotePlugins
+endfunction
+
 call plug#begin(expand('$NVIM_HOME/bundles/'))
 
 "" Plugins
@@ -13,20 +17,21 @@ Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/unite.vim'
-Plug 'zyphrus/unite-tasklist'
-Plug 'Shougo/vimfiler.vim'
-Plug 'matze/vim-move'
-Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/unite-session'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'Shougo/vimfiler.vim'
+Plug 'matze/vim-move'
+Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
-Plug 'Shougo/unite-session'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'zyphrus/unite-tasklist'
 
 " dev
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -39,12 +44,9 @@ Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-
 Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
 Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
 Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
-Plug 'vim-scripts/django.vim'
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'moll/vim-node', {'for': 'javascript'}
-Plug 'mxw/vim-jsx'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'digitaltoad/vim-pug'
+Plug 'zchee/deoplete-jedi'
 Plug 'basyura/unite-rails'
 
 " writing
@@ -55,15 +57,19 @@ Plug 'tpope/vim-git'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
 Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
 Plug 'JulesWang/css.vim', {'for': 'css'}
 Plug 'othree/html5.vim', {'for': 'html'}
 Plug 'mitsuhiko/vim-python-combined', {'for': 'python'}
-Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'avakhov/vim-yaml', {'for': 'yaml'}
+Plug 'vim-scripts/django.vim'
+Plug 'mxw/vim-jsx'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'digitaltoad/vim-pug'
 
 " colorscheme
 Plug 'w0ng/vim-hybrid'
@@ -194,6 +200,8 @@ let g:gitgutter_sign_modified_removed = '~'
 let g:gitgutter_realtime = 0
 nmap [h :GitGutterPrevHunk<CR>zz
 nmap ]h :GitGutterNextHunk<CR>zz
+nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
+
 
 " undotree
 let g:undotree_SetFocusWhenToggle = 1
@@ -201,6 +209,7 @@ let g:undotree_WindowLayout = 3
 nmap <silent>U :UndotreeToggle<CR>
 
 " jedi
+let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = "<leader>pd"
 let g:jedi#goto_assignments_command = "<leader>pg"
 let g:jedi#goto_definitions_command = "<leader>pd"
@@ -208,7 +217,6 @@ let g:jedi#completions_command = ""
 let g:jedi#documentation_command = "<leader>pk"
 let g:jedi#usages_command = "<leader>pn"
 let g:jedi#rename_command = "<leader>pr"
-let g:jedi#popup_on_dot = 0
 let g:jedi#auto_vim_configuration = 0
 
 " vim-move
