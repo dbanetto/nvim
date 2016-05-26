@@ -86,6 +86,7 @@ noremap L $
 nmap bd :bdelete<CR>
 nmap bn :bnext<CR>
 nmap bp :bprevious<CR>
+
 " closes current buffer http://stackoverflow.com/questons/4298910
 nmap bc :b#<bar>bd#<CR>
 nmap bl :b#<CR>
@@ -119,6 +120,7 @@ nmap <A-h> <C-w>h
 nmap <A-j> <C-w>j
 nmap <A-k> <C-w>k
 nmap <A-l> <C-w>l
+nmap <A-l> <C-w>=
 
 " Keep search pattern at the center of the screen
 nmap <silent> n nzz
@@ -146,6 +148,12 @@ nmap <leader>tr :set relativenumber!<CR>:set relativenumber?<CR>
 " toggle relative number
 nmap <leader>tw :set wrap!<CR>:set wrap?<CR>
 
+" close panel
+nmap <leader>cc :close<CR>
+
+" remove whitespace
+nmap <leader>fw :silent let _h=@/<CR>:silent! %s/\s\+$//<CR>:let @/=_h<CR>:echo "cleaned whitespace"<CR>
+
 "" commands
 command! W w!
 command! Q q!
@@ -156,7 +164,7 @@ command! WQ echo "Use :x"
 
 "" autocmd
 " normal mode when focus is lost
-au FocusLost * call feedkeys("\<C-\>\<C-n>") 
+au FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " FileType settings
 au FileType markdown,pandoc setl wrap tw=79 spell
@@ -170,6 +178,6 @@ au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit setl wrap tw=72 spell
 
-au FileType help nmap q :q<CR>
+au FileType help nmap <buffer> q :q<CR>
 
-" vim:ts=2:sw=2:expandtab:
+" vim: set ts=2 sw=2 expandtab

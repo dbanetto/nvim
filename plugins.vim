@@ -245,4 +245,4 @@ autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
-" vim:ts=2:sw=2:expandtab:
+" vim ts=2 sw=2 expandtab 
