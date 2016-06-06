@@ -202,7 +202,6 @@ nmap [h :GitGutterPrevHunk<CR>zz
 nmap ]h :GitGutterNextHunk<CR>zz
 nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
 
-
 " undotree
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout = 3
@@ -218,9 +217,6 @@ let g:jedi#documentation_command = "<leader>pk"
 let g:jedi#usages_command = "<leader>pn"
 let g:jedi#rename_command = "<leader>pr"
 let g:jedi#auto_vim_configuration = 0
-
-" vim-move
-let g:move_key_modifier = 'C-S'
 
 " vim-surround
 let g:surround_no_insert_mappings = 0
@@ -245,4 +241,4 @@ autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
-" vim ts=2 sw=2 expandtab 
+" vim ts=2 sw=2 expandtab

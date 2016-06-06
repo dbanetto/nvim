@@ -115,12 +115,12 @@ if has('nvim')
   tmap <A-l> <C-\><C-n><C-w>l
 endif
 
-" pane navigation
-nmap <A-h> <C-w>h
-nmap <A-j> <C-w>j
-nmap <A-k> <C-w>k
-nmap <A-l> <C-w>l
-nmap <A-l> <C-w>=
+" panel navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <C-=> <C-w>=
 
 " Keep search pattern at the center of the screen
 nmap <silent> n nzz
@@ -179,5 +179,41 @@ au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit setl wrap tw=72 spell
 
 au FileType help nmap <buffer> q :q<CR>
+
+"" Functions
+
+" tmux config
+if $TMUX != ''
+  " https://gist.github.com/tarruda/5158535
+  fun! TmuxMove(direction)
+      " Check if we are currently focusing on a edge window.
+      " To achieve that,  move to/from the requested window and
+      " see if the window number changed
+      let oldw = winnr()
+      silent! exe 'wincmd ' . a:direction
+      let neww = winnr()
+      silent! exe oldw . 'wincmd'
+      if oldw == neww
+        " The focused window is at an edge, so ask tmux to switch panes
+        if a:direction == 'j'
+          call system("tmux select-pane -D")
+        elseif a:direction == 'k'
+          call system("tmux select-pane -U")
+        elseif a:direction == 'h'
+          call system("tmux select-pane -L")
+        elseif a:direction == 'l'
+          call system("tmux select-pane -R")
+        endif
+      else
+        exe 'wincmd ' . a:direction
+      end
+  endfun
+
+  " vim+tmux pane navigation
+  nnoremap <silent> <c-w>j :silent call TmuxMove('j')<cr>
+  nnoremap <silent> <c-w>k :silent call TmuxMove('k')<cr>
+  nnoremap <silent> <c-w>h :silent call TmuxMove('h')<cr>
+  nnoremap <silent> <c-w>l :silent call TmuxMove('l')<cr>
+endif
 
 " vim: set ts=2 sw=2 expandtab
