@@ -24,8 +24,10 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/vimfiler.vim'
-Plug 'matze/vim-move'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -35,7 +37,6 @@ Plug 'zyphrus/unite-tasklist'
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
 
 " sys dev
@@ -44,11 +45,11 @@ Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-
 " web dev
 Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
 Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
-Plug 'davidhalter/jedi-vim', {'for': ['python', 'django']}
+Plug 'basyura/unite-rails', {'for': ['ruby', 'eruby']}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'moll/vim-node', {'for': 'javascript'}
-Plug 'zchee/deoplete-jedi'
-Plug 'basyura/unite-rails'
+Plug 'zchee/deoplete-jedi', {'for': 'javascript'}
+Plug 'tweekmonster/django-plus.vim', {'for': 'python'}
 
 " writing
 Plug 'vim-pandoc/vim-pandoc'
@@ -62,18 +63,16 @@ Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
 Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
 Plug 'JulesWang/css.vim', {'for': 'css'}
 Plug 'othree/html5.vim', {'for': 'html'}
-Plug 'mitsuhiko/vim-python-combined', {'for': 'python'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
 Plug 'avakhov/vim-yaml', {'for': 'yaml'}
-Plug 'vim-scripts/django.vim'
 Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 
 " colorscheme
-Plug 'w0ng/vim-hybrid'
+Plug 'zyphrus/vim-hybrid'
 
 call plug#end()
 
@@ -82,9 +81,10 @@ call plug#end()
 " colorscheme
 set background=dark
 colorscheme hybrid
+
 " lightline
 let g:lightline = {
-  \ 'colorscheme': 'PaperColor_dark',
+  \ 'colorscheme': 'seoul256',
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]

@@ -71,7 +71,7 @@ set smartcase
 
 " folding
 set foldmethod=indent
-set foldlevelstart=1
+set foldlevelstart=0
 
 set completeopt-=preview
 
@@ -136,21 +136,6 @@ nmap <silent> <leader>/ :let @/=""<CR>
 " cd to current file
 nmap <leader>cd :cd %:h<CR>:pwd<CR>
 
-" toggle list
-nmap <leader>tl :set list!<CR>:set list?<CR>
-
-" toggle spell
-nmap <leader>ts :set spell!<CR>:set spell?<CR>
-
-" toggle relative number
-nmap <leader>tr :set relativenumber!<CR>:set relativenumber?<CR>
-
-" toggle relative number
-nmap <leader>tw :set wrap!<CR>:set wrap?<CR>
-
-" close panel
-nmap <leader>cc :close<CR>
-
 " remove whitespace
 nmap <leader>fw :silent let _h=@/<CR>:silent! %s/\s\+$//<CR>:let @/=_h<CR>:echo "cleaned whitespace"<CR>
 
@@ -161,6 +146,18 @@ command! Q q!
 " training
 command! Wq echo "Use :x"
 command! WQ echo "Use :x"
+
+" toggle spell
+nmap <leader>ts :echo "use `cos`"<CR>
+
+" close panel
+nmap <leader>cc :echo "use `c-w c`"<CR>
+
+" toggle relative number
+nmap <leader>tw :echo "use `cor`"<CR>
+
+" toggle list
+nmap <leader>tl :echo "use `col`"<CR>
 
 "" autocmd
 " normal mode when focus is lost
