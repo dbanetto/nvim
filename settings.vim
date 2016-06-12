@@ -189,7 +189,6 @@ if $TMUX != ''
       let oldw = winnr()
       silent! exe 'wincmd ' . a:direction
       let neww = winnr()
-      silent! exe oldw . 'wincmd'
       if oldw == neww
         " The focused window is at an edge, so ask tmux to switch panes
         if a:direction == 'j'
@@ -201,8 +200,6 @@ if $TMUX != ''
         elseif a:direction == 'l'
           call system("tmux select-pane -R")
         endif
-      else
-        exe 'wincmd ' . a:direction
       end
   endfun
 

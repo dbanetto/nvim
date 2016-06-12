@@ -18,7 +18,6 @@ Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-session'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -27,17 +26,19 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'
+Plug 'wellle/targets.vim'
+Plug 'tommcdo/vim-lion'
 Plug 'Shougo/vimfiler.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'zyphrus/unite-tasklist'
 
 " dev
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'Chiel92/vim-autoformat'
+Plug 'ludovicchabant/vim-gutentags'
 
 " sys dev
 Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
@@ -87,7 +88,7 @@ let g:lightline = {
   \ 'colorscheme': 'seoul256',
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ]
   \ },
   \ 'component_function': {
   \   'modified': 'LightLineModified',
@@ -98,6 +99,7 @@ let g:lightline = {
   \   'filetype': 'LightLineFiletype',
   \   'fileencoding': 'LightLineFileencoding',
   \   'mode': 'LightLineMode',
+  \   'gutentags': 'gutentags#statusline'
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '|', 'right': '|' }
@@ -145,6 +147,7 @@ endfunction
 
 " buftabline
 let g:buftabline_show = 1
+let g:buftabline_indicators = 1
 
 " unite
 let g:unite_prompt='> '
@@ -184,6 +187,8 @@ call vimfiler#custom#profile('default', 'context', {
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['buffer', 'tag']
 
 " neomake
 autocmd! BufWritePost * Neomake
