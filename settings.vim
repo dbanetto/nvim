@@ -76,7 +76,8 @@ set foldlevelstart=0
 set completeopt-=preview
 
 "" mappings
-let g:mapleader=","
+nmap <space> <nop>
+let g:mapleader=" "
 
 " jump to start/end of line
 noremap H ^
