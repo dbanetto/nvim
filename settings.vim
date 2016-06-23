@@ -140,25 +140,19 @@ nmap <leader>cd :cd %:h<CR>:pwd<CR>
 " remove whitespace
 nmap <leader>fw :silent let _h=@/<CR>:silent! %s/\s\+$//<CR>:let @/=_h<CR>:echo "cleaned whitespace"<CR>
 
+" lazy write
+nmap <leader>w :w<CR>
+nmap <leader>W :w!<CR>
+
+" semi-colon at EOL + remove trailing whitespace
+nmap <silent> <leader>; mbV:s/\s*$/;/<CR>:let @/=""<CR>`b
+
+" comma at EOL + remove trailing whitespace
+nmap <silent> <leader>, mbV:s/\s*$/,/<CR>:let @/=""<CR>`b
+
 "" commands
 command! W w!
 command! Q q!
-
-" training
-command! Wq echo "Use :x"
-command! WQ echo "Use :x"
-
-" toggle spell
-nmap <leader>ts :echo "use `cos`"<CR>
-
-" close panel
-nmap <leader>cc :echo "use `c-w c`"<CR>
-
-" toggle relative number
-nmap <leader>tw :echo "use `cor`"<CR>
-
-" toggle list
-nmap <leader>tl :echo "use `col`"<CR>
 
 "" autocmd
 " normal mode when focus is lost
