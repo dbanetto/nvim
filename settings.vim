@@ -98,8 +98,8 @@ nmap tw :tabnew<CR>
 nmap tn :tabnext<CR>
 nmap tp :tabprevious<CR>
 
-nnoremap K <C-U>zz
-nnoremap J <C-D>zz
+nmap <C-U> <C-U>zz
+nmap <C-D> <C-D>zz
 
 " stay in visual mode when indenting
 vmap > >gv

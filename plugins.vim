@@ -35,6 +35,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " dev
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
+Plug 'zchee/deoplete-jedi', {'for': 'python'}
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'Chiel92/vim-autoformat'
@@ -187,8 +188,6 @@ call vimfiler#custom#profile('default', 'context', {
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = ['buffer', 'tag']
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -247,18 +246,7 @@ nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
 " undotree
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout = 3
-nmap <silent>U :UndotreeToggle<CR>
-
-" jedi
-let g:jedi#completions_enabled = 0
-let g:jedi#goto_command = "<leader>pd"
-let g:jedi#goto_assignments_command = "<leader>pg"
-let g:jedi#goto_definitions_command = "<leader>pd"
-let g:jedi#completions_command = ""
-let g:jedi#documentation_command = "<leader>pk"
-let g:jedi#usages_command = "<leader>pn"
-let g:jedi#rename_command = "<leader>pr"
-let g:jedi#auto_vim_configuration = 0
+nmap <a-u> :UndotreeToggle<CR>
 
 " vim-surround
 let g:surround_no_insert_mappings = 0
@@ -273,14 +261,5 @@ nmap <C-T> :TagbarToggle<CR>
 " pandoc
 let g:pandoc#modules#disabled =["folding"]
 let g:pandoc#syntax#conceal#use = 0
-
-" omnicompleteion
-autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType haskell       setlocal omnifunc=necoghc#omnifunc
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby          setlocal omnifunc=rubycomplete#Complete
-autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vim ts=2 sw=2 expandtab
