@@ -1,6 +1,6 @@
 " general
 set title
-set virtualedit=onemore
+
 set spelllang=en
 set splitbelow
 set splitright
@@ -84,19 +84,18 @@ noremap H ^
 noremap L $
 
 " buffers
-nmap bd :bdelete<CR>
-nmap bn :bnext<CR>
-nmap bp :bprevious<CR>
-
-" closes current buffer http://stackoverflow.com/questons/4298910
-nmap bc :b#<bar>bd#<CR>
-nmap bl :b#<CR>
+nmap gd  :bdelete<CR>
+nmap gn  :bnext<CR>
+nmap gp  :bprevious<CR>
+nmap gb  :b#<CR>
+nmap gw  :enew<CR>
+nmap gdo :BufOnly<CR>
 
 " tabs
-nmap td :tabclose<CR>
-nmap tw :tabnew<CR>
-nmap tn :tabnext<CR>
-nmap tp :tabprevious<CR>
+nmap gtd :tabclose<CR>
+nmap gtw :tabnew<CR>
+nmap gtn :tabnext<CR>
+nmap gtp :tabprevious<CR>
 
 nmap <C-U> <C-U>zz
 nmap <C-D> <C-D>zz

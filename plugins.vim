@@ -32,6 +32,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'schickling/vim-bufonly'
 
 " dev
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
