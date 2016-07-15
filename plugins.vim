@@ -37,6 +37,7 @@ Plug 'schickling/vim-bufonly'
 " dev
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
 Plug 'zchee/deoplete-jedi', {'for': 'python'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'Chiel92/vim-autoformat'
@@ -73,6 +74,7 @@ Plug 'avakhov/vim-yaml', {'for': 'yaml'}
 Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
+Plug 'neovimhaskell/haskell-vim'
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -189,6 +191,7 @@ call vimfiler#custom#profile('default', 'context', {
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#max_menu_width = 80
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -262,5 +265,8 @@ nmap <C-T> :TagbarToggle<CR>
 " pandoc
 let g:pandoc#modules#disabled =["folding"]
 let g:pandoc#syntax#conceal#use = 0
+
+" neco-ghc
+let g:necoghc_enable_detailed_browse = 1
 
 " vim ts=2 sw=2 expandtab
