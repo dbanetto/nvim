@@ -89,25 +89,27 @@ colorscheme hybrid
 
 " lightline
 let g:lightline = {
-  \ 'colorscheme': 'seoul256',
-  \ 'mode_map': { 'c': 'NORMAL' },
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ]
-  \ },
-  \ 'component_function': {
-  \   'modified': 'LightLineModified',
-  \   'readonly': 'LightLineReadonly',
-  \   'fugitive': 'LightLineFugitive',
-  \   'filename': 'LightLineFilename',
-  \   'fileformat': 'LightLineFileformat',
-  \   'filetype': 'LightLineFiletype',
-  \   'fileencoding': 'LightLineFileencoding',
-  \   'mode': 'LightLineMode',
-  \   'gutentags': 'gutentags#statusline'
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '|', 'right': '|' }
-  \ }
+      \ 'colorscheme': 'seoul256',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ],
+      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'LightLineModified',
+      \   'readonly': 'LightLineReadonly',
+      \   'fugitive': 'LightLineFugitive',
+      \   'filename': 'LightLineFilename',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \   'neomake': 'LightLineNeomake',
+      \   'gutentags': 'gutentags#statusline'
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
 
 function! LightLineModified()
   return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -147,6 +149,16 @@ endfunction
 
 function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightLineNeomake()
+  if winwidth(0) <= 80
+    return ''
+  endif
+  let errs  = neomake#statusline#LoclistCounts()
+  let signs = [has_key(errs,'E') ? '✖:' . get(errs,'E') : '',
+        \  has_key(errs,'W') ? '⚠:' . get(errs,'W') : '']
+  return join(filter(signs , 'v:val != ""'), ' ')
 endfunction
 
 " buftabline
