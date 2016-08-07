@@ -15,4 +15,3 @@ Main plugins
 * Unite
 * deoplete
 * neomake
-* ultisnips

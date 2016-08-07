@@ -89,7 +89,9 @@ nmap gn  :bnext<CR>
 nmap gp  :bprevious<CR>
 nmap gb  :b#<CR>
 nmap gw  :enew<CR>
-nmap gdo :BufOnly<CR>
+nmap gob :BufOnly<CR>
+nmap <A-l>  :bnext<CR>
+nmap <A-h>  :bprevious<CR>
 
 " tabs
 nmap gtd :tabclose<CR>
@@ -109,10 +111,10 @@ if has('nvim')
   tmap <Esc> <C-\><C-n>
 
   " pane navigation
-  tmap <A-h> <C-\><C-n><C-w>h
-  tmap <A-j> <C-\><C-n><C-w>j
-  tmap <A-k> <C-\><C-n><C-w>k
-  tmap <A-l> <C-\><C-n><C-w>l
+  tmap <c-h> <C-\><C-n><C-w>h
+  tmap <c-j> <C-\><C-n><C-w>j
+  tmap <c-k> <C-\><C-n><C-w>k
+  tmap <c-l> <C-\><C-n><C-w>l
 endif
 
 " panel navigation
@@ -143,11 +145,10 @@ nmap <leader>fw :silent let _h=@/<CR>:silent! %s/\s\+$//<CR>:let @/=_h<CR>:echo 
 nmap <leader>w :w<CR>
 nmap <leader>W :w!<CR>
 
-" semi-colon at EOL + remove trailing whitespace
+" <x> at EOL + remove trailing whitespace
 nmap <silent> <leader>; mbV:s/\s*$/;/<CR>:let @/=""<CR>`b
-
-" comma at EOL + remove trailing whitespace
 nmap <silent> <leader>, mbV:s/\s*$/,/<CR>:let @/=""<CR>`b
+nmap <silent> <leader>. mbV:s/\s*$/./<CR>:let @/=""<CR>`b
 
 "" commands
 command! W w!

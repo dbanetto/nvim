@@ -35,9 +35,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'schickling/vim-bufonly'
 
 " dev
-Plug 'Shougo/deoplete.nvim', {'do': function('DoRemotePlugins') }
-Plug 'zchee/deoplete-jedi', {'for': 'python'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+Plug 'Shougo/deoplete.nvim', {'do' : function('DoRemotePlugins')}
+Plug 'zchee/deoplete-jedi',  {'for': 'python'}
+Plug 'eagletmt/neco-ghc',    {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'Chiel92/vim-autoformat'
@@ -47,12 +47,10 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
 
 " web dev
-Plug 'tpope/vim-rails', {'for': ['ruby', 'eruby']}
-Plug 'tpope/vim-bundler', {'for': ['ruby', 'eruby']}
-Plug 'basyura/unite-rails', {'for': ['ruby', 'eruby']}
+Plug 'tpope/vim-rails',              {'for': ['ruby', 'eruby']}
+Plug 'basyura/unite-rails',          {'for': ['ruby', 'eruby']}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'moll/vim-node', {'for': 'javascript'}
-Plug 'zchee/deoplete-jedi', {'for': 'javascript'}
+Plug 'moll/vim-node',                {'for': 'javascript'}
 Plug 'tweekmonster/django-plus.vim', {'for': 'python'}
 
 " writing
@@ -63,14 +61,14 @@ Plug 'tpope/vim-git'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
-Plug 'vim-ruby/vim-ruby', {'for': ['ruby', 'eruby']}
-Plug 'vim-jp/vim-cpp', {'for': 'cpp'}
-Plug 'JulesWang/css.vim', {'for': 'css'}
-Plug 'othree/html5.vim', {'for': 'html'}
-Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'vim-ruby/vim-ruby',       {'for': ['ruby', 'eruby']}
+Plug 'vim-jp/vim-cpp',          {'for': 'cpp'}
+Plug 'JulesWang/css.vim',       {'for': 'css'}
+Plug 'othree/html5.vim',        {'for': 'html'}
+Plug 'cespare/vim-toml',        {'for': 'toml'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'leshill/vim-json', {'for': ['json', 'javascript']}
-Plug 'avakhov/vim-yaml', {'for': 'yaml'}
+Plug 'leshill/vim-json',        {'for': ['json', 'javascript']}
+Plug 'avakhov/vim-yaml',        {'for': 'yaml'}
 Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
@@ -174,7 +172,7 @@ call unite#custom#source(
       \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
       \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
 call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
+nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
 nmap <silent> <A-p> :Unite -start-insert -buffer-name=files file_rec/git<CR>
 nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
 nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
