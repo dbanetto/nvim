@@ -75,6 +75,9 @@ set foldlevelstart=0
 
 set completeopt-=preview
 
+" gui colours
+set termguicolors
+
 "" mappings
 nmap <space> <nop>
 let g:mapleader=" "
