@@ -45,6 +45,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " sys dev
 Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
+Plug 'zchee/deoplete-go', {'for': 'go'}
 
 " web dev
 Plug 'tpope/vim-rails',              {'for': ['ruby', 'eruby']}
@@ -73,6 +74,7 @@ Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 Plug 'neovimhaskell/haskell-vim'
+Plug 'fatih/vim-go', {'for': 'go'}
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -278,5 +280,14 @@ let g:pandoc#syntax#conceal#use = 0
 
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
+
+" vim-go
+let g:go_def_mapping_enabled = 0
+let g:go_term_mode='split'
+au FileType go nmap <leader>gd <Plug>(go-def)
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gn <Plug>(go-rename)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gt <Plug>(go-test)
 
 " vim ts=2 sw=2 expandtab
