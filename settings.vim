@@ -87,20 +87,13 @@ noremap H ^
 noremap L $
 
 " buffers
-nmap gd  :bdelete<CR>
-nmap gn  :bnext<CR>
-nmap gp  :bprevious<CR>
-nmap gb  :b#<CR>
-nmap gw  :enew<CR>
-nmap gob :BufOnly<CR>
-nmap <A-l>  :bnext<CR>
-nmap <A-h>  :bprevious<CR>
-
-" tabs
-nmap gtd :tabclose<CR>
-nmap gtw :tabnew<CR>
-nmap gtn :tabnext<CR>
-nmap gtp :tabprevious<CR>
+nmap <leader>n  :bnext<CR>
+nmap <leader>p  :bprevious<CR>
+nmap <leader>bo :BufOnly<CR>
+nmap <leader>bO :BufOnly!<CR>
+nmap <leader>bl :b#<CR>
+nmap <leader>bd :bdelete<CR>
+nmap <leader>bD :bdelete!<CR>
 
 nmap <C-U> <C-U>zz
 nmap <C-D> <C-D>zz
@@ -125,7 +118,6 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-nmap <C-=> <C-w>=
 
 " Keep search pattern at the center of the screen
 nmap <silent> n nzz
@@ -140,9 +132,6 @@ nmap <silent> <leader>/ :let @/=""<CR>
 
 " cd to current file
 nmap <leader>cd :cd %:h<CR>:pwd<CR>
-
-" remove whitespace
-nmap <leader>fw :silent let _h=@/<CR>:silent! %s/\s\+$//<CR>:let @/=_h<CR>:echo "cleaned whitespace"<CR>
 
 " lazy write
 nmap <leader>w :w<CR>
@@ -173,7 +162,8 @@ au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit setl wrap tw=72 spell
 
-au FileType help nmap <buffer> q :q<CR>
+" quit for
+nnoremap <expr> q (&readonly ? ':close!<CR>' : 'q')
 
 "" Functions
 

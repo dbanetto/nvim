@@ -17,20 +17,17 @@ Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'Shougo/vimfiler.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'mbbill/undotree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'schickling/vim-bufonly'
 
@@ -41,17 +38,15 @@ Plug 'eagletmt/neco-ghc',    {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'lilydjwg/tagbar'
 Plug 'Chiel92/vim-autoformat'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 
 " sys dev
-Plug 'phildawes/racer', {'do': 'cargo build --release' } | Plug 'racer-rust/vim-racer', {'for': 'rust'}
+Plug 'racer-rust/vim-racer', {'for': 'rust'}
 Plug 'zchee/deoplete-go', {'for': 'go'}
 
 " web dev
 Plug 'tpope/vim-rails',              {'for': ['ruby', 'eruby']}
-Plug 'basyura/unite-rails',          {'for': ['ruby', 'eruby']}
 Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'moll/vim-node',                {'for': 'javascript'}
 Plug 'tweekmonster/django-plus.vim', {'for': 'python'}
 
 " writing
@@ -92,7 +87,7 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
       \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
@@ -104,8 +99,7 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
-      \   'neomake': 'LightLineNeomake',
-      \   'gutentags': 'gutentags#statusline'
+      \   'neomake': 'LightLineNeomake'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '|', 'right': '|' }
@@ -116,13 +110,12 @@ function! LightLineModified()
 endfunction
 
 function! LightLineReadonly()
-  return &ft !~? 'help\|vimfiler' && &readonly ? 'X' : ''
+  return &ft !~? 'help\|vimfiler' && &readonly ? '🔒' : ''
 endfunction
 
 function! LightLineFilename()
   return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
@@ -165,27 +158,6 @@ endfunction
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
 
-" unite
-let g:unite_prompt='> '
-let g:unite_split_rule = 'botright'
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source(
-      \ 'file_rec,file_rec/async,file_rec/git,file_rec/neovim', 'matchers',
-      \ ['matcher_fuzzy', 'matcher_hide_hidden_files','converter_relative_word',
-      \  'matcher_hide_current_file', 'matcher_project_ignore_files'])
-call unite#filters#sorter_default#use(['sorter_selecta'])
-nmap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
-nmap <silent> <A-p> :Unite -start-insert -buffer-name=files file_rec/git<CR>
-nmap <silent><leader>cb :Unite -buffer-name=buffers buffer<CR>
-nmap <silent><leader>ct :Unite -buffer-name=tabs tab<CR>
-nmap <silent><leader>cl :Unite -buffer-name=tasklist tasklist<CR>
-nmap <silent><leader>c; :Unite -start-insert -buffer-name=commands command<CR>
-" unite-rails
-nmap <silent><leader>cr :Unite -start-insert -buffer-name=rails rails/
-nmap <silent><leader>crm :Unite -start-insert -buffer-name=rails rails/model<CR>
-nmap <silent><leader>crc :Unite -start-insert -buffer-name=rails rails/controller<CR>
-nmap <silent><leader>crv :Unite -start-insert -buffer-name=rails rails/view<CR>
-
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_marked_file_icon = '✓'
@@ -210,12 +182,7 @@ autocmd! BufWritePost * Neomake
 
 " autoformat
 nmap <leader>ff :Autoformat<CR>
-
-" ultisnips
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-let g:UltiSnipsEditSplit='vertical'
+nmap <leader>fw :RemoveTrailingSpaces<CR>
 
 " startify
 autocmd User Startified setlocal buftype=
@@ -246,9 +213,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-" racer
-let g:racer_cmd = $NVIM_HOME.'/bundles/racer/target/release/racer'
-
 " vim-gitgutter
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '*'
@@ -258,11 +222,6 @@ let g:gitgutter_realtime = 0
 nmap [h :GitGutterPrevHunk<CR>zz
 nmap ]h :GitGutterNextHunk<CR>zz
 nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
-
-" undotree
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_WindowLayout = 3
-nmap <a-u> :UndotreeToggle<CR>
 
 " vim-surround
 let g:surround_no_insert_mappings = 0
