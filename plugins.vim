@@ -32,22 +32,19 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'schickling/vim-bufonly'
 
 " dev
-Plug 'Shougo/deoplete.nvim', {'do' : function('DoRemotePlugins')}
-Plug 'zchee/deoplete-jedi',  {'for': 'python'}
-Plug 'eagletmt/neco-ghc',    {'for': 'haskell'}
-Plug 'neomake/neomake'
-Plug 'lilydjwg/tagbar'
-Plug 'Chiel92/vim-autoformat'
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
+Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
+Plug 'zchee/deoplete-jedi',      {'for': 'python'}
+Plug 'eagletmt/neco-ghc',        {'for': 'haskell'}
+Plug 'neomake/neomake'
+Plug 'Chiel92/vim-autoformat'
 
 " sys dev
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
-Plug 'zchee/deoplete-go', {'for': 'go'}
+Plug 'zchee/deoplete-go',    {'for': 'go'}
 
 " web dev
-Plug 'tpope/vim-rails',              {'for': ['ruby', 'eruby']}
-Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'tweekmonster/django-plus.vim', {'for': 'python'}
+Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
 
 " writing
 Plug 'vim-pandoc/vim-pandoc'
@@ -57,19 +54,18 @@ Plug 'tpope/vim-git'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
-Plug 'vim-ruby/vim-ruby',       {'for': ['ruby', 'eruby']}
-Plug 'vim-jp/vim-cpp',          {'for': 'cpp'}
-Plug 'JulesWang/css.vim',       {'for': 'css'}
-Plug 'othree/html5.vim',        {'for': 'html'}
-Plug 'cespare/vim-toml',        {'for': 'toml'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'leshill/vim-json',        {'for': ['json', 'javascript']}
-Plug 'avakhov/vim-yaml',        {'for': 'yaml'}
+Plug 'vim-ruby/vim-ruby',            {'for': ['ruby', 'eruby']}
+Plug 'JulesWang/css.vim',            {'for': 'css'}
+Plug 'othree/html5.vim',             {'for': 'html'}
+Plug 'cespare/vim-toml',             {'for': 'toml'}
+Plug 'leshill/vim-json',             {'for': ['json', 'javascript']}
+Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'avakhov/vim-yaml',             {'for': 'yaml'}
+Plug 'fatih/vim-go',                 {'for': 'go'}
 Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'fatih/vim-go', {'for': 'go'}
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -208,7 +204,7 @@ let g:startify_skiplist = [
       \ '\s+',
       \ ]
 
-" ruby
+" vim-ruby
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
@@ -222,16 +218,12 @@ let g:gitgutter_realtime = 0
 nmap [h :GitGutterPrevHunk<CR>zz
 nmap ]h :GitGutterNextHunk<CR>zz
 nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
+omap ih <Plug>GitGutterTextObjectInnerPending
+omap ah <Plug>GitGutterTextObjectOuterPending
+xmap ih <Plug>GitGutterTextObjectInnerVisual
 
 " vim-surround
 let g:surround_no_insert_mappings = 0
-
-" tagbar
-let g:tagbar_width = 30
-let g:tagbar_autofocus = 1
-let g:tagbar_indent = 1
-let g:tagbar_iconchars = ['+', '-']
-nmap <C-T> :TagbarToggle<CR>
 
 " pandoc
 let g:pandoc#modules#disabled =["folding"]
