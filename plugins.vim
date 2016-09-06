@@ -16,7 +16,6 @@ call plug#begin(expand('$NVIM_HOME/bundles/'))
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -26,7 +25,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'tommcdo/vim-lion'
-Plug 'Shougo/vimfiler.vim'
+Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'schickling/vim-bufonly'
@@ -153,21 +152,6 @@ endfunction
 " buftabline
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
-
-" vimfiler
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_ignore_pattern = ['^\.', '.*\.pyc$', '^__.*__$', '^node_modules$']
-nmap <silent> <C-o> :VimFiler -buffer-name=VimFiler -status -project -split -toggle -winwidth=30<CR>
-" project draw-like functionality
-nmap <silent> - :VimFilerBufferDir -find -force-quit -buffer-name=drawer<CR>
-
-call vimfiler#custom#profile('default', 'context', {
-      \  'safe': 0,
-      \  'explorer': 1,
-      \  'auto_expand': 1,
-      \  'no_quit': 1
-      \ })
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
