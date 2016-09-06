@@ -101,22 +101,21 @@ let g:lightline = {
       \ }
 
 function! LightLineModified()
-  return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  return &ft =~ 'help\|netrw' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineReadonly()
-  return &ft !~? 'help\|vimfiler' && &readonly ? '🔒' : ''
+  return &ft !~? 'help\|netrw' && &readonly ? '🔒' : ''
 endfunction
 
 function! LightLineFilename()
   return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 function! LightLineFugitive()
-  if &ft !~? 'vimfiler' && exists("*fugitive#head")
+  if &ft !~? 'netrw' && exists("*fugitive#head")
     let branch = fugitive#head()
     return branch !=# '' ? ' '.branch : ''
   endif
