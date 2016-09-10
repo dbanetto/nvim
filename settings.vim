@@ -198,4 +198,4 @@ if $TMUX != ''
   nnoremap <silent> <c-w>l :silent call TmuxMove('l')<cr>
 endif
 
-" vim: set ts=2 sw=2 expandtab
+" vim: set sw=2 ts=2 expandtab ft=vim:

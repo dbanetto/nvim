@@ -29,6 +29,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'schickling/vim-bufonly'
+Plug 'SirVer/ultisnips'
+Plug 'zyphrus/vim-snippets'
 
 " dev
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
@@ -224,4 +226,12 @@ au FileType go nmap <leader>gn <Plug>(go-rename)
 au FileType go nmap <leader>gb <Plug>(go-build)
 au FileType go nmap <leader>gt <Plug>(go-test)
 
-" vim ts=2 sw=2 expandtab
+" ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir=$NVIM_HOME."/bundles/vim-snippets/UltiSnips"
+nmap <leader>ue :UltiSnipsEdit<cr>
+
+" vim: set sw=2 ts=2 ft=vim expandtab:
