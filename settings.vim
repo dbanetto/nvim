@@ -75,8 +75,10 @@ set foldlevelstart=0
 
 set completeopt-=preview
 
-" gui colours
-set termguicolors
+if exists('+termguicolors')
+  " gui colours
+  set termguicolors
+endif
 
 "" mappings
 nmap <space> <nop>
@@ -85,6 +87,9 @@ let g:mapleader=" "
 " jump to start/end of line
 noremap H ^
 noremap L $
+
+" alternate insert escape
+imap jj <ESC>
 
 " buffers
 nmap <leader>n  :bnext<CR>

@@ -2,6 +2,7 @@
 set encoding=utf8
 set nocompatible
 set backspace=2
+set laststatus=2
 
 " setup rtp to neovim's home
 set rtp=$HOME/.config/nvim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.config/nvim/after

@@ -33,10 +33,13 @@ Plug 'SirVer/ultisnips'
 Plug 'zyphrus/vim-snippets'
 
 " dev
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
-Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
-Plug 'zchee/deoplete-jedi',      {'for': 'python'}
-Plug 'eagletmt/neco-ghc',        {'for': 'haskell'}
+if has('nvim')
+  " deoplete
+  Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
+  Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
+  Plug 'zchee/deoplete-jedi',      {'for': 'python'}
+endif
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat'
 
