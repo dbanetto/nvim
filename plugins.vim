@@ -23,14 +23,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'schickling/vim-bufonly'
+Plug 'moll/vim-bbye'
 Plug 'SirVer/ultisnips'
 Plug 'zyphrus/vim-snippets'
+Plug 'ludovicchabant/vim-gutentags'
 
 " dev
 if has('nvim')
@@ -87,7 +87,7 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ],
       \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
@@ -99,7 +99,8 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
-      \   'neomake': 'LightLineNeomake'
+      \   'neomake': 'LightLineNeomake',
+      \   'gutentags': 'gutentags#statusline'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '|', 'right': '|' }
@@ -115,7 +116,7 @@ endfunction
 
 function! LightLineFilename()
   return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ( exists('b:term_title') ? b:term_title :  ('' != expand('%:t') ? expand('%:t') : '[No Name]') ) .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
@@ -236,5 +237,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir=$NVIM_HOME."/bundles/vim-snippets/UltiSnips"
 nmap <leader>ue :UltiSnipsEdit<cr>
+
+" vim-bbye
+nmap <leader>bd :Bdelete<CR>
+nmap <leader>bD :Bdelete!<CR>
 
 " vim: set sw=2 ts=2 ft=vim expandtab:

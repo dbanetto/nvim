@@ -23,7 +23,10 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
 set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+set wildignore+=*/node_modules/*
 set wildignore+=*.swp,*~,._*
+set wildmenu
+set path+=**
 
 " list chars
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
@@ -84,21 +87,12 @@ endif
 nmap <space> <nop>
 let g:mapleader=" "
 
-" jump to start/end of line
-noremap H ^
-noremap L $
-
 " alternate insert escape
 imap jj <ESC>
 
 " buffers
-nmap <leader>n  :bnext<CR>
-nmap <leader>p  :bprevious<CR>
-nmap <leader>bo :BufOnly<CR>
-nmap <leader>bO :BufOnly!<CR>
-nmap <leader>bl :b#<CR>
-nmap <leader>bd :bdelete<CR>
-nmap <leader>bD :bdelete!<CR>
+nmap <leader>n  :echo "use ]b"<CR>
+nmap <leader>p  :echo "use [b"<CR>
 
 nmap <C-U> <C-U>zz
 nmap <C-D> <C-D>zz
