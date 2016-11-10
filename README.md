@@ -14,4 +14,4 @@ Main plugins
 
 * deoplete
 * neomake
-* ultisnips
+* denite

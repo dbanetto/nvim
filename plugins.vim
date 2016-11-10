@@ -16,7 +16,7 @@ call plug#begin(expand('$NVIM_HOME/bundles/'))
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gita'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -28,12 +28,13 @@ Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'moll/vim-bbye'
-Plug 'SirVer/ultisnips'
-Plug 'zyphrus/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
 
 " dev
 if has('nvim')
+  " dnite
+  Plug 'Shougo/denite.nvim/', {'do' : function('DoRemotePlugins')}
+
   " deoplete
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
   Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
@@ -154,6 +155,25 @@ function! LightLineNeomake()
   return join(filter(signs , 'v:val != ""'), ' ')
 endfunction
 
+"" denites
+" custom sources
+if executable('ag')
+  call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
+
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command',
+      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+" matchers
+call denite#custom#var('file_rec', 'matchers',
+      \ ['matcher_ignore_globs', 'matcher_fuzzy'])
+call denite#custom#option('default', 'prompt', '>')
+
+" mappings 
+nmap <leader>uf :Denite buffer<CR>
+nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+
 " buftabline
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
@@ -230,16 +250,11 @@ au FileType go nmap <leader>gn <Plug>(go-rename)
 au FileType go nmap <leader>gb <Plug>(go-build)
 au FileType go nmap <leader>gt <Plug>(go-test)
 
-" ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir=$NVIM_HOME."/bundles/vim-snippets/UltiSnips"
-nmap <leader>ue :UltiSnipsEdit<cr>
-
 " vim-bbye
 nmap <leader>bd :Bdelete<CR>
 nmap <leader>bD :Bdelete!<CR>
+
+" gita
+nmap <leader>gs :Gita status<CR>
 
 " vim: set sw=2 ts=2 ft=vim expandtab:

@@ -1,5 +1,6 @@
 " general
 set title
+set cursorline
 
 set spelllang=en
 set splitbelow
@@ -25,6 +26,7 @@ set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
 set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
 set wildignore+=*/node_modules/*
 set wildignore+=*.swp,*~,._*
+
 set wildmenu
 set path+=**
 
@@ -89,10 +91,6 @@ let g:mapleader=" "
 
 " alternate insert escape
 imap jj <ESC>
-
-" buffers
-nmap <leader>n  :echo "use ]b"<CR>
-nmap <leader>p  :echo "use [b"<CR>
 
 nmap <C-U> <C-U>zz
 nmap <C-D> <C-D>zz
@@ -159,10 +157,10 @@ au FileType vim setl ts=2 sw=2 sts=2
 au FileType plaintex setl wrap tw=79 fo=tcqor
 au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
-au FileType gitcommit setl wrap tw=72 spell
+au FileType gitcommit,gita-commit setl wrap tw=72 spell
 
-" quit for
-nnoremap <expr> q (&readonly ? ':close!<CR>' : 'q')
+" quit for readonly files
+nnoremap <expr> q (&readonly ? ':Bdelete!<CR>' : 'q')
 
 "" Functions
 
