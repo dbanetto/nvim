@@ -156,23 +156,25 @@ function! LightLineNeomake()
 endfunction
 
 "" denites
-" custom sources
-if executable('ag')
-  call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+if has('nvim')
+  " custom sources
+  if executable('ag')
+    call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  endif
+
+  call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+  call denite#custom#var('file_rec/git', 'command',
+        \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+  " matchers
+  call denite#custom#var('file_rec', 'matchers',
+        \ ['matcher_ignore_globs', 'matcher_fuzzy'])
+  call denite#custom#option('default', 'prompt', '>')
+
+  " mappings 
+  nmap <leader>uf :Denite buffer<CR>
+  nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 endif
-
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
-      \ ['git', 'ls-files', '-co', '--exclude-standard'])
-
-" matchers
-call denite#custom#var('file_rec', 'matchers',
-      \ ['matcher_ignore_globs', 'matcher_fuzzy'])
-call denite#custom#option('default', 'prompt', '>')
-
-" mappings 
-nmap <leader>uf :Denite buffer<CR>
-nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 
 " buftabline
 let g:buftabline_show = 1
