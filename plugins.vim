@@ -16,7 +16,7 @@ call plug#begin(expand('$NVIM_HOME/bundles/'))
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
-Plug 'lambdalisue/vim-gita'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -255,8 +255,5 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 " vim-bbye
 nmap <leader>bd :Bdelete<CR>
 nmap <leader>bD :Bdelete!<CR>
-
-" gita
-nmap <leader>gs :Gita status<CR>
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
