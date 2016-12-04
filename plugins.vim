@@ -33,7 +33,7 @@ Plug 'ludovicchabant/vim-gutentags'
 " dev
 if has('nvim')
   " dnite
-  Plug 'Shougo/denite.nvim/', {'do' : function('DoRemotePlugins')}
+  Plug 'Shougo/denite.nvim', {'do' : function('DoRemotePlugins')}
 
   " deoplete
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
@@ -172,7 +172,7 @@ if has('nvim')
   call denite#custom#option('default', 'prompt', '>')
 
   " mappings 
-  nmap <leader>uf :Denite buffer<CR>
+  nmap <leader>ub :Denite buffer<CR>
   nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 endif
 
