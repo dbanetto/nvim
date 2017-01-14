@@ -99,8 +99,9 @@ nmap <C-D> <C-D>zz
 vmap > >gv
 vmap < <gv
 
-" nvim terminal
+" neovim specific settings
 if has('nvim')
+  " terminal mappings
   tmap <Esc> <C-\><C-n>
 
   " pane navigation
@@ -108,6 +109,9 @@ if has('nvim')
   tmap <c-j> <C-\><C-n><C-w>j
   tmap <c-k> <C-\><C-n><C-w>k
   tmap <c-l> <C-\><C-n><C-w>l
+
+  " show result of command as you go
+  set inccommand=nosplit
 endif
 
 " panel navigation

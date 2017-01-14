@@ -39,14 +39,16 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
   Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
   Plug 'zchee/deoplete-jedi',      {'for': 'python'}
+  Plug 'zchee/deoplete-go',        {'for': 'go'}
+  Plug 'Shougo/neco-vim',          {'for': 'vim'}
 endif
+
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat'
 
 " sys dev
 Plug 'racer-rust/vim-racer', {'for': 'rust'}
-Plug 'zchee/deoplete-go',    {'for': 'go'}
 
 " web dev
 Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
@@ -182,7 +184,7 @@ let g:buftabline_indicators = 1
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = 80
+let g:deoplete#max_menu_width = -1
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -242,6 +244,9 @@ let g:pandoc#syntax#conceal#use = 0
 
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
+
+" vim-racer
+let g:racer_experimental_completer = 1
 
 " vim-go
 let g:go_def_mapping_enabled = 0
