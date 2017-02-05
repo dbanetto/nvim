@@ -73,6 +73,7 @@ Plug 'mxw/vim-jsx'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 Plug 'neovimhaskell/haskell-vim'
+Plug 'puppetlabs/puppet-syntax-vim'
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
