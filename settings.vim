@@ -179,15 +179,22 @@ if $TMUX != ''
       silent! exe 'wincmd ' . a:direction
       let neww = winnr()
       if oldw == neww
+        " work around mac screwing up $PATH
+        if has('mac')
+          let tmux_path = '/usr/local/bin/'
+        else
+          let tmux_path = ''
+        endif
+
         " The focused window is at an edge, so ask tmux to switch panes
         if a:direction == 'j'
-          call system("tmux select-pane -D")
+          call system(tmux_path."tmux select-pane -D")
         elseif a:direction == 'k'
-          call system("tmux select-pane -U")
+          call system(tmux_path."tmux select-pane -U")
         elseif a:direction == 'h'
-          call system("tmux select-pane -L")
+          call system(tmux_path."tmux select-pane -L")
         elseif a:direction == 'l'
-          call system("tmux select-pane -R")
+          call system(tmux_path."tmux select-pane -R")
         endif
       end
   endfun
