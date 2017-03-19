@@ -152,7 +152,7 @@ command! Q q!
 au FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " FileType settings
-au FileType markdown,pandoc setl wrap tw=79 spell
+au FileType markdown,pandoc setl wrap tw=79 spell background=light
 au FileType python setl ts=4 sw=4 sts=4 et
 au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
 au FileType javascript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
