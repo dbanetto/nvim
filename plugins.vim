@@ -74,6 +74,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'digitaltoad/vim-pug'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -174,7 +175,7 @@ if has('nvim')
         \ ['matcher_ignore_globs', 'matcher_fuzzy'])
   call denite#custom#option('default', 'prompt', '>')
 
-  " mappings 
+  " mappings
   nmap <leader>ub :Denite buffer<CR>
   nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 endif
@@ -261,5 +262,8 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 " vim-bbye
 nmap <leader>bd :Bdelete<CR>
 nmap <leader>bD :Bdelete!<CR>
+
+" Vim-Jinja2-Syntax
+au BufRead,BufNewFile *.tera set filetype=jinja2.html
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
