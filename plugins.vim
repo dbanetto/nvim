@@ -248,12 +248,21 @@ let g:pandoc#syntax#conceal#use = 0
 let g:necoghc_enable_detailed_browse = 1
 
 " vim-racer
-let g:racer_experimental_completer = 1
+if executable('rustc')
+  let $RUST_SRC_PATH = system('$(rustc --print sysroot)/lib/rustlib/src/rust/src')
+endif
+if executable('racer')
+  let g:racer_experimental_completer = 1
+  au FileType rust nmap gd <Plug>(rust-def)
+  au FileType rust nmap gs <Plug>(rust-def-split)
+  au FileType rust nmap gx <Plug>(rust-def-vertical)
+  au FileType rust nmap <leader>gd <Plug>(rust-doc)
+endif
 
 " vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_term_mode='split'
-au FileType go nmap <leader>gd <Plug>(go-def)
+au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <leader>gr <Plug>(go-run)
 au FileType go nmap <leader>gn <Plug>(go-rename)
 au FileType go nmap <leader>gb <Plug>(go-build)
