@@ -158,13 +158,13 @@ au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
 au FileType javascript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
 au FileType html,css setl ts=2 sw=2 sts=2
 au FileType vim setl ts=2 sw=2 sts=2
-au FileType plaintex setl wrap tw=79 fo=tcqor
+au FileType tex,plaintex setl wrap tw=79 fo=tcqor spell
 au FileType cpp,c setl cindent
 au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit,gita-commit setl wrap tw=72 spell
 
 " quit for readonly files
-nnoremap <expr> q (&readonly ? ':Bdelete!<CR>' : 'q')
+nnoremap <expr> q (&readonly ? ':close<CR>' : 'q')
 
 "" Functions
 
