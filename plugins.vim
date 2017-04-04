@@ -62,7 +62,8 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-ruby/vim-ruby',            {'for': ['ruby', 'eruby']}
-Plug 'JulesWang/css.vim',            {'for': 'css'}
+Plug 'hail2u/vim-css3-syntax',       {'for': ['css', 'scss']}
+Plug 'ap/vim-css-color',             {'for': ['css','scss']}
 Plug 'othree/html5.vim',             {'for': 'html'}
 Plug 'cespare/vim-toml',             {'for': 'toml'}
 Plug 'leshill/vim-json',             {'for': ['json', 'javascript']}
