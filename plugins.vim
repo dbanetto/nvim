@@ -55,6 +55,7 @@ Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
 
 " writing
 Plug 'vim-pandoc/vim-pandoc'
+Plug 'FreedomBen/LanguageTool'
 
 " syntax
 Plug 'tpope/vim-git'
@@ -275,5 +276,11 @@ nmap <leader>bD :Bdelete!<CR>
 
 " Vim-Jinja2-Syntax
 au BufRead,BufNewFile *.tera set filetype=jinja2.html
+
+" languagetool
+let g:languagetool_lang = 'en-NZ'
+if has('mac')
+  let g:languagetool_jar = '/usr/local/Cellar/languagetool/3.6/libexec/languagetool-commandline.jar'
+endif
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
