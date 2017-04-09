@@ -55,7 +55,7 @@ Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
 
 " writing
 Plug 'vim-pandoc/vim-pandoc'
-Plug 'FreedomBen/LanguageTool'
+Plug 'rhysd/vim-grammarous'
 
 " syntax
 Plug 'tpope/vim-git'
@@ -278,7 +278,24 @@ nmap <leader>bD :Bdelete!<CR>
 au BufRead,BufNewFile *.tera set filetype=jinja2.html
 
 " languagetool
-let g:languagetool_lang = 'en-NZ'
-let g:languagetool_jar = $LANGUAGE_TOOL_PATH
+au FileType pandoc,markdown,latex nmap <leader>fg :GrammarousCheck<CR>
+let g:grammarous#languagetool_cmd = 'languagetool'
+let g:grammarous#default_comments_only_filetypes = {
+      \ '*' : 1, 'help' : 0, 'markdown' : 0, 'latex': 0, 'pandoc': 0
+      \ }
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+    nmap <buffer>]g <Plug>(grammarous-move-to-next-error)
+    nmap <buffer>[g <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer>gf <Plug>(grammarous-fixit)
+    nmap <buffer>go <Plug>(grammarous-move-to-info-window)
+endfunction
+
+function! g:grammarous#hooks.on_reset(errs) abort
+    nunmap <buffer>]g
+    nunmap <buffer>[g
+    nunmap <buffer>gf
+    nunmap <buffer>go
+endfunction
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
