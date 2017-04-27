@@ -251,7 +251,7 @@ let g:necoghc_enable_detailed_browse = 1
 
 " vim-racer
 if executable('rustc') && executable('rustup')
-  let $RUST_SRC_PATH = system('$(rustc --print sysroot)/lib/rustlib/src/rust/src')
+  let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
 endif
 if executable('racer')
   let g:racer_experimental_completer = 1
