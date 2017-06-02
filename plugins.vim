@@ -95,7 +95,7 @@ let g:lightline = {
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ],
-      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -107,7 +107,8 @@ let g:lightline = {
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
       \   'neomake': 'LightLineNeomake',
-      \   'gutentags': 'gutentags#statusline'
+      \   'gutentags': 'gutentags#statusline',
+      \   'host': 'LightLineHost'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '|', 'right': '|' }
@@ -159,6 +160,11 @@ function! LightLineNeomake()
   let signs = [has_key(errs,'E') ? '✖:' . get(errs,'E') : '',
         \  has_key(errs,'W') ? '⚠:' . get(errs,'W') : '']
   return join(filter(signs , 'v:val != ""'), ' ')
+endfunction
+
+let s:hostname_and_user = $USER . '@' . system('hostname -s | tr -d "\n"')
+function! LightLineHost()
+  return winwidth(0) > 80 ? ( $SSH_TTY != '' ? s:hostname_and_user : ''  ) : ''
 endfunction
 
 "" denites
