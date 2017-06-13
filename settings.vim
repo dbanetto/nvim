@@ -8,6 +8,7 @@ set splitright
 set number
 set hidden
 set autoread
+set mouse=n
 
 " Disable back & swap
 set nobackup
