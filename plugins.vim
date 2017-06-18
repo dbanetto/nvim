@@ -58,25 +58,9 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'rhysd/vim-grammarous'
 
 " syntax
-Plug 'tpope/vim-git'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-ruby/vim-ruby',            {'for': ['ruby', 'eruby']}
-Plug 'hail2u/vim-css3-syntax',       {'for': ['css', 'scss']}
 Plug 'ap/vim-css-color',             {'for': ['css','scss']}
-Plug 'othree/html5.vim',             {'for': 'html'}
-Plug 'cespare/vim-toml',             {'for': 'toml'}
-Plug 'leshill/vim-json',             {'for': ['json', 'javascript']}
-Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'avakhov/vim-yaml',             {'for': 'yaml'}
-Plug 'fatih/vim-go',                 {'for': 'go'}
-Plug 'mxw/vim-jsx'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'digitaltoad/vim-pug'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'sheerun/vim-polyglot'
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
