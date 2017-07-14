@@ -113,6 +113,9 @@ if has('nvim')
 
   " show result of command as you go
   set inccommand=nosplit
+
+  " enter insert mode when entering terminals
+  autocmd BufWinEnter,WinEnter term://* startinsert
 endif
 
 " panel navigation
