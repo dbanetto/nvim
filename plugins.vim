@@ -61,6 +61,7 @@ Plug 'rhysd/vim-grammarous'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'ap/vim-css-color',             {'for': ['css','scss']}
 Plug 'sheerun/vim-polyglot'
+Plug 'fatih/vim-go', { 'for': ['go']}
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -200,7 +201,7 @@ let g:startify_bookmarks = [
       \ { 'c': $NVIM_HOME }
       \ ]
 let g:startify_list_order = [
-      \ ['   MRU in ' . getcwd() . ' :'],
+      \ ['   MRU in ' . getcwd() . ':'],
       \ 'dir',
       \ ['   MRU:'],
       \ 'files',
