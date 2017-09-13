@@ -27,6 +27,7 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'moll/vim-bbye'
 Plug 'ludovicchabant/vim-gutentags'
 
 " dev
@@ -123,6 +124,7 @@ endfunction
 function! LightLineFileformat()
   return winwidth(0) > 70 ? &fileformat : ''
 endfunction
+
 function! LightLineFiletype()
   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
@@ -263,6 +265,10 @@ au FileType go nmap <leader>gr <Plug>(go-run)
 au FileType go nmap <leader>gn <Plug>(go-rename)
 au FileType go nmap <leader>gb <Plug>(go-build)
 au FileType go nmap <leader>gt <Plug>(go-test)
+
+" vim-bbye
+nmap <leader>bd :Bdelete<CR>
+nmap <leader>bD :Bdelete!<CR>
 
 " Vim-Jinja2-Syntax
 au BufRead,BufNewFile *.tera set filetype=jinja2.html

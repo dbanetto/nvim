@@ -210,12 +210,4 @@ if $TMUX != ''
   nnoremap <silent> <c-w>l :silent call TmuxMove('l')<cr>
 endif
 
-function! BWipe()
-  let a:kill = buffer_number('%')
-  exec ':buffer #'
-  exec 'bwipe ' . a:kill
-endfunction
-
-nmap <leader>bd :call BWipe()<CR>.
-
 " vim: set sw=2 ts=2 expandtab ft=vim:
