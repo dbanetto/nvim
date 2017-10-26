@@ -6,7 +6,9 @@ if empty(glob('$NVIM_HOME/autoload/plug.vim'))
 endif
 
 function! DoRemotePlugins(arg)
-  UpdateRemotePlugins
+  if has('nvim')
+    UpdateRemotePlugins
+  endif
 endfunction
 
 call plug#begin(expand('$NVIM_HOME/bundles/'))
@@ -29,6 +31,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'moll/vim-bbye'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'Shougo/echodoc.vim'
 
 " dev
 if has('nvim')
@@ -37,8 +40,6 @@ if has('nvim')
 
   " deoplete
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
-  Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
-  Plug 'zchee/deoplete-jedi',      {'for': 'python'}
   Plug 'zchee/deoplete-go',        {'for': 'go'}
   Plug 'Shougo/neco-vim',          {'for': 'vim'}
 endif
@@ -47,8 +48,8 @@ Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'neomake/neomake'
 Plug 'Chiel92/vim-autoformat'
 
-" sys dev
-Plug 'racer-rust/vim-racer', {'for': 'rust'}
+" language servers
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 " web dev
 Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
@@ -59,7 +60,7 @@ Plug 'rhysd/vim-grammarous'
 
 " syntax
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'ap/vim-css-color',             {'for': ['css','scss']}
+Plug 'ap/vim-css-color', {'for': ['css','scss']}
 Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'for': ['go']}
 
@@ -179,7 +180,7 @@ let g:buftabline_indicators = 1
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = -1
+let g:deoplete#max_menu_width = 40
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -245,18 +246,6 @@ let g:pandoc#syntax#conceal#use = 0
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
 
-" vim-racer
-if executable('rustc') && executable('rustup')
-  let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
-endif
-if executable('racer')
-  let g:racer_experimental_completer = 1
-  au FileType rust nmap gd <Plug>(rust-def)
-  au FileType rust nmap gs <Plug>(rust-def-split)
-  au FileType rust nmap gx <Plug>(rust-def-vertical)
-  au FileType rust nmap <leader>gd <Plug>(rust-doc)
-endif
-
 " vim-go
 let g:go_def_mapping_enabled = 0
 let g:go_term_mode='split'
@@ -295,5 +284,25 @@ function! g:grammarous#hooks.on_reset(errs) abort
   nunmap <buffer>gf
   nunmap <buffer>go
 endfunction
+
+" rust
+if executable('rustc') && executable('rustup')
+  let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
+endif
+
+" LanguageClient
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+      \ 'python': [$HOME.'/.local/bin/pyls'],
+      \ }
+" lazily start language server on entry
+au FileType rust,python LanguageClientStart<CR>
+
+au FileType rust,python nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+au FileType rust,python nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+au FileType rust,python nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" echodoc
+let g:echodoc#enable_at_startup = 1
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
