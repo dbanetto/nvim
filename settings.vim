@@ -9,10 +9,11 @@ set number
 set hidden
 set autoread
 set mouse=n
+set noshowmode
 
 " Disable back & swap
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " diff
@@ -58,7 +59,7 @@ set tabstop=4
 " warp
 set display=lastline
 set formatoptions=tcroql
-set lbr
+set linebreak
 set nojoinspaces
 set wrap
 set textwidth=0
