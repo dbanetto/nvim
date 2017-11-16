@@ -148,9 +148,9 @@ function! LightLineNeomake()
   return join(filter(signs , 'v:val != ""'), ' ')
 endfunction
 
-let s:hostname_and_user = $USER . '@' . system('hostname -s | tr -d "\n"')
+let s:hostname_and_user = ( $SSH_TTY != '' ? $USER . '@' . system('hostname -s | tr -d "\n"') : ''  )
 function! LightLineHost()
-  return winwidth(0) > 80 ? ( $SSH_TTY != '' ? s:hostname_and_user : ''  ) : ''
+  return winwidth(0) > 80 ? s:hostname_and_user : ''
 endfunction
 
 "" denites
@@ -285,11 +285,6 @@ function! g:grammarous#hooks.on_reset(errs) abort
   nunmap <buffer>go
 endfunction
 
-" rust
-if executable('rustc') && executable('rustup')
-  let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
-endif
-
 " LanguageClient
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
@@ -301,6 +296,13 @@ au FileType rust,python LanguageClientStart<CR>
 au FileType rust,python nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 au FileType rust,python nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 au FileType rust,python nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+function! SetRustPath()
+  if $RUST_SRC_PATH == ''
+    let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
+  endif
+endfunction
+au FileType rust call SetRustPath()
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
