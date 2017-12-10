@@ -158,6 +158,15 @@ if has('nvim')
   " custom sources
   if executable('ag')
     call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+    " Ag command on grep source
+    call denite#custom#var('grep', 'command', ['ag'])
+    call denite#custom#var('grep', 'default_opts',
+          \ ['-i', '--vimgrep'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
   endif
 
   call denite#custom#alias('source', 'file_rec/git', 'file_rec')
@@ -169,9 +178,26 @@ if has('nvim')
         \ ['matcher_ignore_globs', 'matcher_fuzzy'])
   call denite#custom#option('default', 'prompt', '>')
 
+	" Movement
+	call denite#custom#map(
+	      \ 'insert',
+	      \ '<C-j>',
+	      \ '<denite:move_to_next_line>',
+	      \ 'noremap'
+	      \)
+	call denite#custom#map(
+	      \ 'insert',
+	      \ '<C-k>',
+	      \ '<denite:move_to_previous_line>',
+	      \ 'noremap'
+	      \)
+
   " mappings
   nmap <leader>ub :Denite buffer<CR>
-  nmap <leader>uf :Denite `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+  nmap <leader>ul :Denite line<CR>
+  nmap <leader>ug :Denite grep<CR>
+  " check if in git dir by using fugitive's b:git_dir variable
+  nmap <leader>uf :Denite `exists('b:git_dir') ? 'file_rec/git' : 'file_rec'`<CR>
 endif
 
 " buftabline
