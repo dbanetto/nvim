@@ -1,5 +1,9 @@
 if $NVIM_HOME == ""
-  let $NVIM_HOME=$HOME."/.config/nvim"
+  if has("win32") || has("win64")
+    let $NVIM_HOME=$HOME."/appdata/local/nvim"
+  else
+    let $NVIM_HOME=$HOME."/.config/nvim"
+  endif
 endif
 
 if filereadable($NVIM_HOME."/env.vim")

@@ -1,8 +1,9 @@
 " bootstrap plug.vim
-if empty(glob('$NVIM_HOME/autoload/plug.vim'))
+let s:bootstrapping = 0
+if empty(glob($NVIM_HOME.'/autoload/plug.vim'))
   silent !curl -fLo $NVIM_HOME/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
+  let s:bootstrapping = 1
 endif
 
 function! DoRemotePlugins(arg)
@@ -11,7 +12,7 @@ function! DoRemotePlugins(arg)
   endif
 endfunction
 
-call plug#begin(expand('$NVIM_HOME/bundles/'))
+call plug#begin($NVIM_HOME.'/bundles/')
 
 "" Plugins
 " general
@@ -68,6 +69,11 @@ Plug 'fatih/vim-go', { 'for': ['go']}
 Plug 'zyphrus/vim-hybrid'
 
 call plug#end()
+
+if s:bootstrapping == 1
+  echo 'bootstrapping plugins'
+  PlugInstall
+endif
 
 "" Configuration
 
