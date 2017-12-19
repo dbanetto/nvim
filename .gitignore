@@ -1,3 +1,4 @@
+env.vim
 autoload/
 bundles/
 sessions/
