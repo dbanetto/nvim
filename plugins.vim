@@ -31,7 +31,9 @@ Plug 'manasthakur/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'moll/vim-bbye'
-Plug 'ludovicchabant/vim-gutentags'
+if executable('ctags')
+  Plug 'ludovicchabant/vim-gutentags'
+endif
 Plug 'Shougo/echodoc.vim'
 
 " dev

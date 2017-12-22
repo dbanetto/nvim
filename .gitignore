@@ -1,4 +1,5 @@
 env.vim
+rplugin.vim
 autoload/
 bundles/
 sessions/
