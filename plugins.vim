@@ -31,9 +31,6 @@ Plug 'manasthakur/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'moll/vim-bbye'
-if executable('ctags')
-  Plug 'ludovicchabant/vim-gutentags'
-endif
 Plug 'Shougo/echodoc.vim'
 
 " dev
@@ -88,7 +85,7 @@ let g:lightline = {
       \ 'colorscheme': 'PaperColor',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'gutentags' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
       \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
@@ -101,7 +98,6 @@ let g:lightline = {
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
       \   'neomake': 'LightLineNeomake',
-      \   'gutentags': 'gutentags#statusline',
       \   'host': 'LightLineHost'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
