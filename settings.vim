@@ -156,11 +156,14 @@ command! Q q!
 " normal mode when focus is lost
 au FocusLost * call feedkeys("\<C-\>\<C-n>")
 
+" Filetype detection
+au BufNewFile,BufRead *.tsx setl filetype=typescript.jsx
+
 " FileType settings
 au FileType markdown,pandoc setl wrap tw=79 spell
 au FileType python setl ts=4 sw=4 sts=4 et
 au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
-au FileType javascript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
+au FileType javascript,typescript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
 au FileType html,css setl ts=2 sw=2 sts=2
 au FileType vim setl ts=2 sw=2 sts=2
 au FileType tex,plaintex setl wrap tw=79 fo=tcqor spell

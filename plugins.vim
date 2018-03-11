@@ -45,7 +45,7 @@ if has('nvim')
 endif
 
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 Plug 'Chiel92/vim-autoformat'
 
 " language servers
@@ -86,7 +86,7 @@ let g:lightline = {
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-      \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], [ 'neomake', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], [ 'ale', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -97,7 +97,7 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
-      \   'neomake': 'LightLineNeomake',
+      \   'ale': 'LightLineAle',
       \   'host': 'LightLineHost'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
@@ -142,14 +142,28 @@ function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-function! LightLineNeomake()
+function! LightLineAle()
   if winwidth(0) <= 80
     return ''
   endif
-  let errs  = neomake#statusline#LoclistCounts()
-  let signs = [has_key(errs,'E') ? '✖:' . get(errs,'E') : '',
-        \  has_key(errs,'W') ? '⚠:' . get(errs,'W') : '']
-  return join(filter(signs , 'v:val != ""'), ' ')
+
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:status = ''
+  if ale#engine#IsCheckingBuffer(bufnr(''))
+    let l:status = 'Linting'
+  elseif l:counts.total > 0
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    if l:all_errors > 0
+      let l:status = '✖:' . l:all_errors
+    endif
+    if l:all_non_errors > 0
+      let l:status = ' ⚠:' . l:all_non_errors
+    endif
+  endif
+
+  return l:status
 endfunction
 
 let s:hostname_and_user = ( $SSH_TTY != '' ? $USER . '@' . system('hostname -s | tr -d "\n"') : ''  )
@@ -223,8 +237,9 @@ let g:buftabline_indicators = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_menu_width = 40
 
-" neomake
-autocmd! BufWritePost * Neomake
+" ale
+let g:ale_linters = {'rust': ['rls']}
+let g:ale_rust_rls_toolchain = 'stable'
 
 " autoformat
 nmap <leader>ff :Autoformat<CR>
