@@ -343,7 +343,7 @@ endfunction
 
 " LanguageClient
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+      \ 'rust': ['rls'],
       \ 'python': [$HOME.'/.local/bin/pyls'],
       \ }
 " lazily start language server on entry
