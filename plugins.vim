@@ -47,6 +47,7 @@ endif
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'Chiel92/vim-autoformat'
+Plug 'sgur/vim-editorconfig'
 
 " language servers
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
