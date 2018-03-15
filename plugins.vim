@@ -144,7 +144,7 @@ function! LightLineMode()
 endfunction
 
 function! LightLineAle()
-  if winwidth(0) <= 80
+  if winwidth(0) <= 80 || !exists("*ale#statusline#Count")
     return ''
   endif
 
