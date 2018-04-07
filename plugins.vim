@@ -42,6 +42,7 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
   Plug 'zchee/deoplete-go',        {'for': 'go'}
   Plug 'Shougo/neco-vim',          {'for': 'vim'}
+  Plug 'zchee/deoplete-jedi',      {'for': 'python'}
 endif
 
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -345,14 +346,13 @@ endfunction
 " LanguageClient
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['rls'],
-      \ 'python': [$HOME.'/.local/bin/pyls'],
       \ }
 " lazily start language server on entry
-au FileType rust,python LanguageClientStart<CR>
+au FileType rust LanguageClientStart<CR>
 
-au FileType rust,python nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-au FileType rust,python nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-au FileType rust,python nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+au FileType rust nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+au FileType rust nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+au FileType rust nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 function! SetRustPath()
   if $RUST_SRC_PATH == ''
