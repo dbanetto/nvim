@@ -29,13 +29,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tommcdo/vim-lion'
 Plug 'manasthakur/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'moll/vim-bbye'
 Plug 'Shougo/echodoc.vim'
 
 " dev
 if has('nvim')
-  " dnite
+  " denite
   Plug 'Shougo/denite.nvim', {'do' : function('DoRemotePlugins')}
 
   " deoplete
@@ -45,23 +44,17 @@ if has('nvim')
   Plug 'zchee/deoplete-jedi',      {'for': 'python'}
 endif
 
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'Chiel92/vim-autoformat'
 Plug 'sgur/vim-editorconfig'
 
 " language servers
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-
-" web dev
-Plug 'tpope/vim-rails',      {'for': ['ruby', 'eruby']}
-
-" writing
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'rhysd/vim-grammarous'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " syntax
-Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'ap/vim-css-color', {'for': ['css','scss']}
 Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'for': ['go']}
@@ -185,17 +178,6 @@ if has('nvim')
           \ ['--vimgrep', '--no-heading'])
     call denite#custom#var('grep', 'recursive_opts', [])
     call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-  elseif executable('ag')
-    call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-    " Ag command on grep source
-    call denite#custom#var('grep', 'command', ['ag'])
-    call denite#custom#var('grep', 'default_opts',
-          \ ['-i', '--vimgrep'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'final_opts', [])
   endif

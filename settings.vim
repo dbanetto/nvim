@@ -78,7 +78,7 @@ set smartcase
 
 " folding
 set foldmethod=indent
-set foldlevelstart=0
+set foldlevelstart=1
 
 set completeopt-=preview
 
@@ -116,6 +116,7 @@ if has('nvim')
   set inccommand=nosplit
 
   " enter insert mode when entering terminals
+  au TermOpen * setlocal nonumber
   autocmd BufWinEnter,WinEnter term://* startinsert
 endif
 
@@ -180,31 +181,31 @@ nnoremap <expr> q (&readonly ? ':close<CR>' : 'q')
 if $TMUX != ''
   " https://gist.github.com/tarruda/5158535
   fun! TmuxMove(direction)
-      " Check if we are currently focusing on a edge window.
-      " To achieve that,  move to/from the requested window and
-      " see if the window number changed
-      let oldw = winnr()
-      silent! exe 'wincmd ' . a:direction
-      let neww = winnr()
-      if oldw == neww
-        " work around mac screwing up $PATH
-        if has('mac')
-          let tmux_path = '/usr/local/bin/'
-        else
-          let tmux_path = ''
-        endif
+    " Check if we are currently focusing on a edge window.
+    " To achieve that,  move to/from the requested window and
+    " see if the window number changed
+    let oldw = winnr()
+    silent! exe 'wincmd ' . a:direction
+    let neww = winnr()
+    if oldw == neww
+      " work around mac screwing up $PATH
+      if has('mac')
+        let tmux_path = '/usr/local/bin/'
+      else
+        let tmux_path = ''
+      endif
 
-        " The focused window is at an edge, so ask tmux to switch panes
-        if a:direction == 'j'
-          call system(tmux_path."tmux select-pane -D")
-        elseif a:direction == 'k'
-          call system(tmux_path."tmux select-pane -U")
-        elseif a:direction == 'h'
-          call system(tmux_path."tmux select-pane -L")
-        elseif a:direction == 'l'
-          call system(tmux_path."tmux select-pane -R")
-        endif
-      end
+      " The focused window is at an edge, so ask tmux to switch panes
+      if a:direction == 'j'
+        call system(tmux_path."tmux select-pane -D")
+      elseif a:direction == 'k'
+        call system(tmux_path."tmux select-pane -U")
+      elseif a:direction == 'h'
+        call system(tmux_path."tmux select-pane -L")
+      elseif a:direction == 'l'
+        call system(tmux_path."tmux select-pane -R")
+      endif
+    end
   endfun
 
   " vim+tmux pane navigation
