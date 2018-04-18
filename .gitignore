@@ -1,4 +1,6 @@
 env.vim
+env.plug.vim
+env.after.vim
 rplugin.vim
 autoload/
 bundles/

@@ -62,6 +62,10 @@ Plug 'fatih/vim-go', { 'for': ['go']}
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
 
+if filereadable($NVIM_HOME."/env.plug.vim")
+  source $NVIM_HOME/env.plug.vim
+endif
+
 call plug#end()
 
 if s:bootstrapping == 1
