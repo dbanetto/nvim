@@ -173,7 +173,7 @@ endfunction
 if has('nvim')
   " custom sources
   if executable('rg')
-    call denite#custom#var('file_rec', 'command',
+    call denite#custom#var('file/rec', 'command',
           \ ['rg', '--files', '--glob', '!.git'])
 
     call denite#custom#var('grep', 'command', ['rg'])
@@ -185,35 +185,52 @@ if has('nvim')
     call denite#custom#var('grep', 'final_opts', [])
   endif
 
-  call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-  call denite#custom#var('file_rec/git', 'command',
+  call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+  call denite#custom#var('file/rec/git', 'command',
         \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
   " matchers
-  call denite#custom#var('file_rec', 'matchers',
-        \ ['matcher_ignore_globs', 'matcher_fuzzy'])
+  call denite#custom#var('file/rec', 'matchers',
+        \ ['matcher/ignore_globs', 'matcher/fuzzy'])
   call denite#custom#option('default', 'prompt', '>')
 
-	" Movement
-	call denite#custom#map(
-	      \ 'insert',
-	      \ '<C-j>',
-	      \ '<denite:move_to_next_line>',
-	      \ 'noremap'
-	      \)
-	call denite#custom#map(
-	      \ 'insert',
-	      \ '<C-k>',
-	      \ '<denite:move_to_previous_line>',
-	      \ 'noremap'
-	      \)
+  " Change ignore_globs
+  call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+        \ [ '.git/', '.ropeproject/', '__pycache__/', 'node_modules/',
+        \   '.idea/', '.DS_Store', 'target/',
+        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+  " Movement
+  autocmd FileType denite call s:denite_my_settings()
+  autocmd FileType denite-filter
+        \ call deoplete#custom#buffer_option('auto_complete', v:false)
+  function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>
+          \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+          \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p
+          \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+          \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+          \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>
+          \ denite#do_map('toggle_select').'j'
+  endfunction
+
+  autocmd FileType denite-filter call s:denite_filter_my_settings()
+  function! s:denite_filter_my_settings() abort
+    imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+  endfunction
 
   " mappings
   nmap <leader>ub :Denite buffer<CR>
   nmap <leader>ul :Denite line<CR>
   nmap <leader>ug :Denite grep<CR>
   " check if in git dir by using fugitive's b:git_dir variable
-  nmap <leader>uf :Denite `exists('b:git_dir') ? 'file_rec/git' : 'file_rec'`<CR>
+  nmap <leader>uf :Denite `exists('b:git_dir') ? 'file/rec/git' : 'file/rec'`<CR>
+  nmap <leader>uF :Denite file/rec<CR>
 endif
 
 " buftabline
