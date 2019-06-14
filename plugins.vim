@@ -57,7 +57,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 " syntax
 Plug 'ap/vim-css-color', {'for': ['css','scss']}
 Plug 'sheerun/vim-polyglot'
-Plug 'fatih/vim-go', { 'for': ['go']}
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
@@ -330,9 +329,6 @@ function! g:grammarous#hooks.on_reset(errs) abort
 endfunction
 
 " LanguageClient
-let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rls'],
-      \ }
 " lazily start language server on entry
 au FileType rust LanguageClientStart<CR>
 
