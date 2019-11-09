@@ -350,19 +350,11 @@ function! g:grammarous#hooks.on_reset(errs) abort
 endfunction
 
 " LanguageClient
-" lazily start language server on entry
-au FileType rust LanguageClientStart<CR>
-
-au FileType rust nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-au FileType rust nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-au FileType rust nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-function! SetRustPath()
-  if $RUST_SRC_PATH == ''
-    let $RUST_SRC_PATH = substitute(system('rustc --print sysroot'), '.$', '/lib/rustlib/src/rust/src', '')
-  endif
-endfunction
-au FileType rust call SetRustPath()
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
