@@ -42,6 +42,8 @@ if has('nvim')
   Plug 'zchee/deoplete-go',        {'for': 'go'}
   Plug 'Shougo/neco-vim',          {'for': 'vim'}
   Plug 'zchee/deoplete-jedi',      {'for': 'python'}
+
+  Plug 'tveskag/nvim-blame-line'
 endif
 
 Plug 'w0rp/ale'
@@ -364,5 +366,9 @@ au FileType rust call SetRustPath()
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
+
+" nvim-blame-line
+nmap <silent> <leader>gb :ToggleBlameLine<CR>
+nmap <silent> <leader>gl :SingleBlameLine<CR>
 
 " vim: set sw=2 ts=2 ft=vim expandtab:
