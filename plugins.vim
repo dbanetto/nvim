@@ -60,6 +60,8 @@ Plug 'sheerun/vim-polyglot'
 
 " colorscheme
 Plug 'zyphrus/vim-hybrid'
+Plug 'cocopon/iceberg.vim'
+Plug 'gkeep/iceberg-dark'
 
 if filereadable($NVIM_HOME."/env.plug.vim")
   source $NVIM_HOME/env.plug.vim
@@ -76,11 +78,11 @@ endif
 
 " colorscheme
 set background=dark
-colorscheme hybrid
+colorscheme iceberg
 
 " lightline
 let g:lightline = {
-      \ 'colorscheme': 'hybrid',
+      \ 'colorscheme': 'icebergDark',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
