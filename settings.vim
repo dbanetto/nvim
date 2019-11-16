@@ -77,7 +77,7 @@ set showmatch
 set smartcase
 
 " folding
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevelstart=1
 
 set completeopt-=preview
