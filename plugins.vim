@@ -64,9 +64,7 @@ Plug 'ap/vim-css-color', {'for': ['css','scss']}
 Plug 'sheerun/vim-polyglot'
 
 " colorscheme
-Plug 'zyphrus/vim-hybrid'
-Plug 'cocopon/iceberg.vim'
-Plug 'gkeep/iceberg-dark'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 
 " }}}
 
@@ -89,13 +87,13 @@ endif
 
 " colorscheme {{{
 set background=dark
-colorscheme iceberg
+colorscheme challenger_deep
 
 " }}}
 
 " lightline {{{
 let g:lightline = {
-      \ 'colorscheme': 'icebergDark',
+      \ 'colorscheme': 'challenger_deep',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
