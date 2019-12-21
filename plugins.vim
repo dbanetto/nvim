@@ -1,4 +1,4 @@
-" bootstrap plug.vim
+" bootstrap plug.vim {{{
 let s:bootstrapping = 0
 if empty(glob($NVIM_HOME.'/autoload/plug.vim'))
   silent !curl -fLo $NVIM_HOME/autoload/plug.vim --create-dirs
@@ -14,7 +14,10 @@ endfunction
 
 call plug#begin($NVIM_HOME.'/bundles/')
 
-"" Plugins
+" }}}
+
+" Plugins {{{
+
 " general
 Plug 'itchyny/lightline.vim'
 Plug 'ap/vim-buftabline'
@@ -65,6 +68,10 @@ Plug 'zyphrus/vim-hybrid'
 Plug 'cocopon/iceberg.vim'
 Plug 'gkeep/iceberg-dark'
 
+" }}}
+
+" env file loading {{{
+
 if filereadable($NVIM_HOME."/env.plug.vim")
   source $NVIM_HOME/env.plug.vim
 endif
@@ -76,13 +83,17 @@ if s:bootstrapping == 1
   PlugInstall
 endif
 
+" }}}
+
 "" Configuration
 
-" colorscheme
+" colorscheme {{{
 set background=dark
 colorscheme iceberg
 
-" lightline
+" }}}
+
+" lightline {{{
 let g:lightline = {
       \ 'colorscheme': 'icebergDark',
       \ 'mode_map': { 'c': 'NORMAL' },
@@ -173,7 +184,9 @@ function! LightLineHost()
   return winwidth(0) > 80 ? s:hostname_and_user : ''
 endfunction
 
-"" denites
+" }}}
+
+" denite {{{
 if has('nvim')
   " custom sources
   if executable('rg')
@@ -237,23 +250,33 @@ if has('nvim')
   nmap <leader>uF :Denite file/rec<CR>
 endif
 
-" buftabline
+" }}}
+
+" buftabline {{{
 let g:buftabline_show = 1
 let g:buftabline_indicators = 1
 
-" deoplete
+" }}}
+
+" deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_menu_width = 40
 
-" ale
+" }}}
+
+" ale {{{
 let g:ale_linters = {'rust': ['rls']}
 let g:ale_rust_rls_toolchain = 'stable'
 
-" autoformat
+" }}}
+
+" autoformat {{{
 nmap <leader>ff :Autoformat<CR>
 nmap <leader>fw :RemoveTrailingSpaces<CR>
 
-" startify
+" }}}
+
+" startify {{{
 autocmd User Startified setlocal buftype=
 let g:startify_enable_unsafe = 1
 let g:startify_change_to_dir = 1
@@ -282,12 +305,9 @@ let g:startify_skiplist = [
       \ '\s+',
       \ ]
 
-" vim-ruby
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+" }}}
 
-" vim-gitgutter
+" vim-gitgutter {{{
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '*'
 let g:gitgutter_sign_removed = '-'
@@ -300,33 +320,20 @@ omap ih <Plug>GitGutterTextObjectInnerPending
 omap ah <Plug>GitGutterTextObjectOuterPending
 xmap ih <Plug>GitGutterTextObjectInnerVisual
 
-" vim-surround
+" }}}
+
+" vim-surround {{{
 let g:surround_no_insert_mappings = 0
 
-" pandoc
-let g:pandoc#modules#disabled =["folding"]
-let g:pandoc#syntax#conceal#use = 0
+" }}}
 
-" neco-ghc
-let g:necoghc_enable_detailed_browse = 1
-
-" vim-go
-let g:go_def_mapping_enabled = 0
-let g:go_term_mode='split'
-au FileType go nmap gd <Plug>(go-def)
-au FileType go nmap <leader>gr <Plug>(go-run)
-au FileType go nmap <leader>gn <Plug>(go-rename)
-au FileType go nmap <leader>gb <Plug>(go-build)
-au FileType go nmap <leader>gt <Plug>(go-test)
-
-" vim-bbye
+" vim-bbye {{{
 nmap <leader>bd :Bdelete<CR>
 nmap <leader>bD :Bdelete!<CR>
 
-" Vim-Jinja2-Syntax
-au BufRead,BufNewFile *.tera set filetype=jinja2.html
+" }}}
 
-" languagetool
+" languagetool {{{
 au FileType pandoc,markdown,latex nmap <leader>fg :GrammarousCheck<CR>
 if executable('languagetool')
   let g:grammarous#languagetool_cmd = 'languagetool'
@@ -349,18 +356,26 @@ function! g:grammarous#hooks.on_reset(errs) abort
   nunmap <buffer>go
 endfunction
 
-" LanguageClient
+" }}}
+
+" LanguageClient {{{
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" echodoc
+" }}}
+
+" echodoc {{{
 let g:echodoc#enable_at_startup = 1
 
-" nvim-blame-line
+" }}}
+
+" nvim-blame-line {{{
 nmap <silent> <leader>gb :ToggleBlameLine<CR>
 nmap <silent> <leader>gl :SingleBlameLine<CR>
 
-" vim: set sw=2 ts=2 ft=vim expandtab:
+" }}}
+
+" vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
