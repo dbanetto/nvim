@@ -158,6 +158,7 @@ command! Q q!
 au FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " Filetype detection
+au FileType netrw setl bufhidden=delete
 au BufNewFile,BufRead *.tsx setl filetype=typescript.jsx
 
 " FileType settings
