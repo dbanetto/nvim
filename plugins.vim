@@ -1,7 +1,7 @@
 " bootstrap plug.vim {{{
 let s:bootstrapping = 0
 if empty(glob($NVIM_HOME.'/autoload/plug.vim'))
-  silent !curl -fLo $NVIM_HOME/autoload/plug.vim --create-dirs
+  !curl -fLo $NVIM_HOME/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   let s:bootstrapping = 1
 endif
@@ -42,15 +42,11 @@ if has('nvim')
 
   " deoplete
   Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
-  Plug 'zchee/deoplete-go',        {'for': 'go'}
-  Plug 'Shougo/neco-vim',          {'for': 'vim'}
   Plug 'zchee/deoplete-jedi',      {'for': 'python'}
 
   Plug 'tveskag/nvim-blame-line'
 endif
 
-Plug 'w0rp/ale'
-Plug 'Chiel92/vim-autoformat'
 Plug 'sgur/vim-editorconfig'
 
 " language servers
@@ -97,7 +93,7 @@ let g:lightline = {
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-      \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], [ 'ale', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], [ 'percent', 'host' ], ['languageclient', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -108,7 +104,7 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
-      \   'ale': 'LightLineAle',
+      \   'languageclient': 'LightLineLanguageClient',
       \   'host': 'LightLineHost'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
@@ -153,28 +149,38 @@ function! LightLineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-function! LightLineAle()
-  if winwidth(0) <= 80 || !exists("*ale#statusline#Count")
-    return ''
+function! LightLineLanguageClient() abort
+  if !exists('b:LanguageClient_isServerRunning') || !LanguageClient#isServerRunning()
+    return ""
   endif
 
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:status = ''
-  if ale#engine#IsCheckingBuffer(bufnr(''))
-    let l:status = 'Linting'
-  elseif l:counts.total > 0
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    if l:all_errors > 0
-      let l:status = '✖:' . l:all_errors
-    endif
-    if l:all_non_errors > 0
-      let l:status = ' ⚠:' . l:all_non_errors
-    endif
+  if LanguageClient#serverStatus()
+    return "🤔"
   endif
 
-  return l:status
+  let l:diagnosticsDict = LanguageClient#statusLineDiagnosticsCounts()
+  let l:status = []
+  let l:errors = get(l:diagnosticsDict,'E',0)
+  if l:errors > 0
+    let l:status += ["✖:" . l:errors]
+  endif
+  let l:warnings = get(l:diagnosticsDict,'W',0)
+  if l:warnings > 0
+    let l:status += ["⚠:" . l:warnings]
+  endif
+  let l:informations = get(l:diagnosticsDict,'I',0)
+  if l:informations > 0
+    let l:status += ["I:" . l:informations]
+  endif
+  let l:hints = get(l:diagnosticsDict,'H',0)
+  if l:hints > 0
+    let l:status += ["H:" . l:hints]
+  endif
+  let l:line = ""
+  if len(l:status) > 0
+    let l:line = join(l:status, " ")
+  endif
+  return l:line
 endfunction
 
 let s:hostname_and_user = ( $SSH_TTY != '' ? $USER . '@' . system('hostname -s | tr -d "\n"') : ''  )
@@ -259,18 +265,6 @@ let g:buftabline_indicators = 1
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_menu_width = 40
-
-" }}}
-
-" ale {{{
-let g:ale_linters = {'rust': ['rls']}
-let g:ale_rust_rls_toolchain = 'stable'
-
-" }}}
-
-" autoformat {{{
-nmap <leader>ff :Autoformat<CR>
-nmap <leader>fw :RemoveTrailingSpaces<CR>
 
 " }}}
 

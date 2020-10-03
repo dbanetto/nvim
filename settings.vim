@@ -216,4 +216,18 @@ if $TMUX != ''
   nnoremap <silent> <c-w>l :silent call TmuxMove('l')<cr>
 endif
 
+" From https://github.com/Chiel92/vim-autoformat/blob/41f2fe23611025b891d2a92e721df61846e3df4b/plugin/autoformat.vim#L354-L363
+function! s:RemoveTrailingSpaces()
+    let user_gdefault = &gdefault
+    try
+        set nogdefault
+        silent! %s/\s\+$
+    finally
+        let &gdefault = user_gdefault
+    endtry
+endfunction
+
+command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
+nmap <leader>fw :RemoveTrailingSpaces<CR>
+
 " vim: set sw=2 ts=2 expandtab ft=vim:
