@@ -34,6 +34,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
 Plug 'Shougo/echodoc.vim'
+Plug 'lambdalisue/edita.vim'
 
 " dev
 if has('nvim')
@@ -368,6 +369,11 @@ let g:echodoc#enable_at_startup = 1
 nmap <silent> <leader>gb :ToggleBlameLine<CR>
 nmap <silent> <leader>gl :SingleBlameLine<CR>
 
+" }}}
+
+" edita.vim {{{
+let g:edita_enable = 1
+let g:edita#opener = "edit"
 " }}}
 
 " vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
