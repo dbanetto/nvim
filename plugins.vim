@@ -32,7 +32,7 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
-Plug 'kyoh86/vim-editerm'
+Plug 'lambdalisue/edita.vim'
 
 " dev
 if has('nvim')
