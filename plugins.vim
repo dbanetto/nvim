@@ -20,7 +20,6 @@ call plug#begin($NVIM_HOME.'/bundles/')
 
 " general
 Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
@@ -33,28 +32,26 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
-Plug 'Shougo/echodoc.vim'
-Plug 'lambdalisue/edita.vim'
+Plug 'kyoh86/vim-editerm'
 
 " dev
 if has('nvim')
-  " denite
-  Plug 'Shougo/denite.nvim', {'do' : function('DoRemotePlugins')}
-
-  " deoplete
-  Plug 'Shougo/deoplete.nvim',     {'do' : function('DoRemotePlugins')}
-  Plug 'zchee/deoplete-jedi',      {'for': 'python'}
-
   Plug 'tveskag/nvim-blame-line'
+
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'L3MON4D3/LuaSnip'
+  
+  " language servers
+  Plug 'neovim/nvim-lspconfig'
+
 endif
 
 Plug 'sgur/vim-editorconfig'
 
-" language servers
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 " syntax
 Plug 'ap/vim-css-color', {'for': ['css','scss']}
@@ -191,81 +188,13 @@ endfunction
 
 " }}}
 
-" denite {{{
+" neovim {{{
 if has('nvim')
-  " custom sources
-  if executable('rg')
-    call denite#custom#var('file/rec', 'command',
-          \ ['rg', '--files', '--glob', '!.git'])
+  lua require'plugins'
+  " nvim-cmp
+  set completeopt=menuone,noselect
 
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-          \ ['--vimgrep', '--no-heading'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-  endif
-
-  call denite#custom#alias('source', 'file/rec/git', 'file/rec')
-  call denite#custom#var('file/rec/git', 'command',
-        \ ['git', 'ls-files', '-co', '--exclude-standard'])
-
-  " matchers
-  call denite#custom#var('file/rec', 'matchers',
-        \ ['matcher/ignore_globs', 'matcher/fuzzy'])
-  call denite#custom#option('default', 'prompt', '>')
-
-  " Change ignore_globs
-  call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        \ [ '.git/', '.ropeproject/', '__pycache__/', 'node_modules/',
-        \   '.idea/', '.DS_Store', 'target/',
-        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-  " Movement
-  autocmd FileType denite call s:denite_my_settings()
-  autocmd FileType denite-filter
-        \ call deoplete#custom#buffer_option('auto_complete', v:false)
-  function! s:denite_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR>
-          \ denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> d
-          \ denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> p
-          \ denite#do_map('do_action', 'preview')
-    nnoremap <silent><buffer><expr> q
-          \ denite#do_map('quit')
-    nnoremap <silent><buffer><expr> i
-          \ denite#do_map('open_filter_buffer')
-    nnoremap <silent><buffer><expr> <Space>
-          \ denite#do_map('toggle_select').'j'
-  endfunction
-
-  autocmd FileType denite-filter call s:denite_filter_my_settings()
-  function! s:denite_filter_my_settings() abort
-    imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
-  endfunction
-
-  " mappings
-  nmap <leader>ub :Denite buffer<CR>
-  nmap <leader>ul :Denite line<CR>
-  nmap <leader>ug :Denite grep<CR>
-  " check if in git dir by using fugitive's b:git_dir variable
-  nmap <leader>uf :Denite `exists('b:git_dir') ? 'file/rec/git' : 'file/rec'`<CR>
-  nmap <leader>uF :Denite file/rec<CR>
 endif
-
-" }}}
-
-" buftabline {{{
-let g:buftabline_show = 1
-let g:buftabline_indicators = 1
-
-" }}}
-
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = 40
 
 " }}}
 
@@ -323,45 +252,6 @@ let g:surround_no_insert_mappings = 0
 " vim-bbye {{{
 nmap <leader>bd :Bdelete<CR>
 nmap <leader>bD :Bdelete!<CR>
-
-" }}}
-
-" languagetool {{{
-au FileType pandoc,markdown,latex nmap <leader>fg :GrammarousCheck<CR>
-if executable('languagetool')
-  let g:grammarous#languagetool_cmd = 'languagetool'
-endif
-let g:grammarous#default_comments_only_filetypes = {
-      \ '*' : 1, 'help' : 0, 'markdown' : 0, 'latex': 0, 'pandoc': 0
-      \ }
-let g:grammarous#hooks = {}
-function! g:grammarous#hooks.on_check(errs) abort
-  nmap <buffer>]g <Plug>(grammarous-move-to-next-error)
-  nmap <buffer>[g <Plug>(grammarous-move-to-previous-error)
-  nmap <buffer>gf <Plug>(grammarous-fixit)
-  nmap <buffer>go <Plug>(grammarous-move-to-info-window)
-endfunction
-
-function! g:grammarous#hooks.on_reset(errs) abort
-  nunmap <buffer>]g
-  nunmap <buffer>[g
-  nunmap <buffer>gf
-  nunmap <buffer>go
-endfunction
-
-" }}}
-
-" LanguageClient {{{
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" }}}
-
-" echodoc {{{
-let g:echodoc#enable_at_startup = 1
 
 " }}}
 

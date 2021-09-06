@@ -80,7 +80,7 @@ set smartcase
 set foldmethod=indent
 set foldlevelstart=1
 
-set completeopt-=preview
+set completeopt=menuone,noselect
 
 if exists('+termguicolors')
   " gui colours
@@ -152,6 +152,9 @@ nmap <silent> <leader>. mbV:s/\s*$/./<CR>:let @/=""<CR>`b
 "" commands
 command! W w!
 command! Q q!
+
+"" yank to end of line
+nmap Y y$
 
 "" autocmd
 " normal mode when focus is lost
