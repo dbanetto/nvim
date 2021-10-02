@@ -33,6 +33,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
 Plug 'lambdalisue/edita.vim'
 
+Plug 'ap/vim-buftabline'
+
 " dev
 if has('nvim')
   Plug 'tveskag/nvim-blame-line'
@@ -263,6 +265,10 @@ nmap <silent> <leader>gl :SingleBlameLine<CR>
 " edita.vim {{{
 let g:edita_enable = 1
 let g:edita#opener = "edit"
+" }}}
+
+" buftabline {{{
+let g:buftabline_show = 1
 " }}}
 
 " vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
