@@ -31,7 +31,6 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
 Plug 'moll/vim-bbye'
-Plug 'lambdalisue/edita.vim'
 
 Plug 'ap/vim-buftabline'
 
@@ -43,8 +42,6 @@ if has('nvim')
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'saadparwaiz1/cmp_luasnip'
-  Plug 'L3MON4D3/LuaSnip'
   
   " language servers
   Plug 'neovim/nvim-lspconfig'
