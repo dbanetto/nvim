@@ -49,11 +49,9 @@ if has('nvim')
 endif
 
 Plug 'sgur/vim-editorconfig'
-
-
-" syntax
-Plug 'ap/vim-css-color', {'for': ['css','scss']}
-Plug 'sheerun/vim-polyglot'
+Plug 'hashivim/vim-terraform'
+Plug 'rust-lang/rust.vim'
+Plug 'wgwoods/vim-systemd-syntax'
 
 " colorscheme
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
@@ -266,6 +264,7 @@ let g:edita#opener = "edit"
 
 " buftabline {{{
 let g:buftabline_show = 1
+let g:buftabline_indicators = 1
 " }}}
 
 " vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
