@@ -162,18 +162,17 @@ au FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " Filetype detection
 au FileType netrw setl bufhidden=delete
-au BufNewFile,BufRead *.tsx setl filetype=typescript.jsx
 
 " FileType settings
-au FileType markdown,pandoc setl wrap tw=79 spell
-au FileType python setl ts=4 sw=4 sts=4 et
-au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
-au FileType javascript,typescript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
-au FileType html,css setl ts=2 sw=2 sts=2
-au FileType vim setl ts=2 sw=2 sts=2
-au FileType tex,plaintex setl wrap tw=79 fo=tcqor spell
-au FileType cpp,c setl cindent
-au FileType make setl ts=4 sts=4 sw=4 noet list
+" au FileType markdown,pandoc setl wrap tw=79 spell
+" au FileType python setl ts=4 sw=4 sts=4 et
+" au FileType ruby,eruby setl ts=2 sw=2 sts=2 et
+" au FileType javascript,typescript,json,coffeescript,pug,jsx setl ts=2 sw=2 sts=2
+" au FileType html,css setl ts=2 sw=2 sts=2
+" au FileType vim setl ts=2 sw=2 sts=2
+" au FileType tex,plaintex setl wrap tw=79 fo=tcqor spell
+" au FileType cpp,c setl cindent
+" au FileType make setl ts=4 sts=4 sw=4 noet list
 au FileType gitcommit,gita-commit setl wrap tw=72 spell
 
 " quit for readonly files
