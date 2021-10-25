@@ -38,20 +38,21 @@ Plug 'ap/vim-buftabline'
 if has('nvim')
   Plug 'tveskag/nvim-blame-line'
 
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  
   " language servers
   Plug 'neovim/nvim-lspconfig'
+  Plug 'simrat39/rust-tools.nvim'
 
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/nvim-cmp'
+
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
 endif
 
 Plug 'sgur/vim-editorconfig'
-Plug 'hashivim/vim-terraform'
-Plug 'rust-lang/rust.vim'
-Plug 'wgwoods/vim-systemd-syntax'
+Plug 'sheerun/vim-polyglot'
 
 " colorscheme
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
