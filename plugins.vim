@@ -30,13 +30,11 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-vinegar'
 Plug 'airblade/vim-gitgutter'
-Plug 'moll/vim-bbye'
-
-Plug 'ap/vim-buftabline'
 
 " dev
 if has('nvim')
   Plug 'tveskag/nvim-blame-line'
+  Plug 'romgrk/barbar.nvim'
 
   " language servers
   Plug 'neovim/nvim-lspconfig'
@@ -246,26 +244,26 @@ let g:surround_no_insert_mappings = 0
 
 " }}}
 
-" vim-bbye {{{
-nmap <leader>bd :Bdelete<CR>
-nmap <leader>bD :Bdelete!<CR>
-
-" }}}
-
 " nvim-blame-line {{{
 nmap <silent> <leader>gb :ToggleBlameLine<CR>
 nmap <silent> <leader>gl :SingleBlameLine<CR>
 
 " }}}
 
-" edita.vim {{{
-let g:edita_enable = 1
-let g:edita#opener = "edit"
-" }}}
+" barbar.nvim {{{
+let g:netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted'"
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:false
+let bufferline.auto_hide = v:false
+let bufferline.exclude_ft = ['netrw']
+let bufferline.exclude_name = ['package.json']
+let bufferline.icons = v:false
+let bufferline.icon_custom_colors = v:false
 
-" buftabline {{{
-let g:buftabline_show = 1
-let g:buftabline_indicators = 1
+nnoremap <silent> [b         :BufferPrevious<CR>
+nnoremap <silent> ]b         :BufferNext<CR>
+nnoremap <silent> <leader>bd :BufferClose<CR>
+nnoremap <silent> <C-s>      :BufferPick<CR>
 " }}}
 
 " vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
