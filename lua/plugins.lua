@@ -54,12 +54,40 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Enable the following language servers
-local servers = { 'rust_analyzer', 'pyright', 'gopls', 'tsserver', 'tflint', 'jsonnet_ls' }
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
+local servers = {
+    'rust_analyzer',
+    'pyright',
+    ['gopls'] = {
+        gopls = {
+            env = {
+                GOPACKAGESDRIVER = './tools/gopackagesdriver.sh'
+            },
+            directoryFilters = {
+                "-bazel-bin",
+                "-bazel-out",
+                "-bazel-testlogs",
+                "-bazel-k8s",
+            },
+        }
+    },
+    'tsserver',
+    'tflint',
+    'jsonnet_ls'
+}
+
+for k, lsp in pairs(servers) do
+    if type(k) == 'string' then
+        nvim_lsp[k].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = lsp,
+        }
+    else
+        nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        }
+    end
 end
 
 
@@ -105,4 +133,24 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
+}
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = {
+    "rust",
+    "terraform",
+    "go",
+    "lua",
+    "vim",
+    "help",
+    "gitcommit",
+    "gitconfig",
+    "query"
+  },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+  }
 }

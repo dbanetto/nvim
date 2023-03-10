@@ -47,10 +47,13 @@ if has('nvim')
 
   Plug 'L3MON4D3/LuaSnip'
   Plug 'saadparwaiz1/cmp_luasnip'
+  " Treesitter
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+else
+  Plug 'sheerun/vim-polyglot'
 endif
 
 Plug 'sgur/vim-editorconfig'
-Plug 'sheerun/vim-polyglot'
 
 " colorscheme
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
