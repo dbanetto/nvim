@@ -145,7 +145,6 @@ require'nvim-treesitter.configs'.setup {
     "vim",
     "help",
     "gitcommit",
-    "gitconfig",
     "query"
   },
   sync_install = false,
