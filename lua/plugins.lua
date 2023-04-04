@@ -159,3 +159,12 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   }
 }
+
+-- Set barbar's options
+require'barbar'.setup {
+  -- Disable animations
+  animation = false,
+  -- Excludes buffers from the tabline
+  exclude_ft = {'netrw'},
+  exclude_name = {'package.json'},
+}

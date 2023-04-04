@@ -34,6 +34,7 @@ Plug 'airblade/vim-gitgutter'
 " dev
 if has('nvim')
   Plug 'tveskag/nvim-blame-line'
+  Plug 'nvim-tree/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
 
   " language servers
@@ -85,6 +86,7 @@ colorscheme challenger_deep
 
 " lightline {{{
 let g:lightline = {
+      \ 'enable': {'statusline': 1, 'tabline': 0},
       \ 'colorscheme': 'challenger_deep',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
@@ -255,18 +257,60 @@ nmap <silent> <leader>gl :SingleBlameLine<CR>
 
 " barbar.nvim {{{
 let g:netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted'"
-let bufferline = get(g:, 'bufferline', {})
-let bufferline.animation = v:false
-let bufferline.auto_hide = v:false
-let bufferline.exclude_ft = ['netrw']
-let bufferline.exclude_name = ['package.json']
-let bufferline.icons = v:false
-let bufferline.icon_custom_colors = v:false
 
 nnoremap <silent> [b         :BufferPrevious<CR>
 nnoremap <silent> ]b         :BufferNext<CR>
 nnoremap <silent> <leader>bd :BufferClose<CR>
 nnoremap <silent> <C-s>      :BufferPick<CR>
+
+" Move to previous/next
+nnoremap <silent>    <A-,> <Cmd>BufferPrevious<CR>
+nnoremap <silent>    <A-.> <Cmd>BufferNext<CR>
+
+" Re-order to previous/next
+nnoremap <silent>    <A-<> <Cmd>BufferMovePrevious<CR>
+nnoremap <silent>    <A->> <Cmd>BufferMoveNext<CR>
+
+" Goto buffer in position...
+nnoremap <silent>    <A-1> <Cmd>BufferGoto 1<CR>
+nnoremap <silent>    <A-2> <Cmd>BufferGoto 2<CR>
+nnoremap <silent>    <A-3> <Cmd>BufferGoto 3<CR>
+nnoremap <silent>    <A-4> <Cmd>BufferGoto 4<CR>
+nnoremap <silent>    <A-5> <Cmd>BufferGoto 5<CR>
+nnoremap <silent>    <A-6> <Cmd>BufferGoto 6<CR>
+nnoremap <silent>    <A-7> <Cmd>BufferGoto 7<CR>
+nnoremap <silent>    <A-8> <Cmd>BufferGoto 8<CR>
+nnoremap <silent>    <A-9> <Cmd>BufferGoto 9<CR>
+nnoremap <silent>    <A-0> <Cmd>BufferLast<CR>
+
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> <Cmd>BufferPin<CR>
+
+" Close buffer
+nnoremap <silent>    <A-c> <Cmd>BufferClose<CR>
+" Restore buffer
+nnoremap <silent>    <A-s-c> <Cmd>BufferRestore<CR>
+
+" Wipeout buffer
+"                          :BufferWipeout
+" Close commands
+"                          :BufferCloseAllButCurrent
+"                          :BufferCloseAllButVisible
+"                          :BufferCloseAllButPinned
+"                          :BufferCloseAllButCurrentOrPinned
+"                          :BufferCloseBuffersLeft
+"                          :BufferCloseBuffersRight
+
+" Magic buffer-picking mode
+nnoremap <silent> <C-p>    <Cmd>BufferPick<CR>
+nnoremap <silent> <C-p>    <Cmd>BufferPickDelete<CR>
+
+" Sort automatically by...
+nnoremap <silent> <Space>bb <Cmd>BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>bD <Cmd>BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl <Cmd>BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>bw <Cmd>BufferOrderByWindowNumber<CR>
+
 " }}}
 
 " vim: set sw=2 ts=2 ft=vim expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
