@@ -150,7 +150,6 @@ require'nvim-treesitter.configs'.setup {
     "go",
     "lua",
     "vim",
-    "help",
     "gitcommit",
     "query"
   },
