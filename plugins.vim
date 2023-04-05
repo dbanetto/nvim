@@ -50,6 +50,8 @@ if has('nvim')
   Plug 'saadparwaiz1/cmp_luasnip'
   " Treesitter
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Non-treesitter languages
+  Plug 'google/vim-jsonnet'
 else
   Plug 'sheerun/vim-polyglot'
 endif
