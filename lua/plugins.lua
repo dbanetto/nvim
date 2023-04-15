@@ -14,8 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 --  }}}
 
--- Plugins {{{
-
 require("lazy").setup({
   { "challenger-deep-theme/vim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -85,7 +83,91 @@ require("lazy").setup({
     end
     -- }}}
   },
-  'neovim/nvim-lspconfig',
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
+    config = function() 
+      -- LSP {{{
+      -- Mappings.
+      -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+      local opts = { noremap=true, silent=true }
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+      -- Use an on_attach function to only map the following keys
+      -- after the language server attaches to the current buffer
+      local on_attach = function(client, bufnr)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+        -- Mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local bufopts = { noremap=true, silent=true, buffer=bufnr }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+        vim.keymap.set('n', '<space>wl', function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, bufopts)
+        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+      end
+
+      -- LSP settings
+      local nvim_lsp = require 'lspconfig'
+      -- Set up lspconfig.
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      -- Enable the following language servers
+      local servers = {
+        'pyright',
+        ['gopls'] = {
+          gopls = {
+            env = {
+              GOPACKAGESDRIVER = './tools/gopackagesdriver.sh'
+            },
+            directoryFilters = {
+              "-bazel-bin",
+              "-bazel-out",
+              "-bazel-testlogs",
+              "-bazel-k8s",
+              "-bazel-infrastructure",
+            },
+          }
+        },
+        'tsserver',
+        'tflint',
+        'jsonnet_ls'
+      }
+
+      for k, lsp in pairs(servers) do
+        if type(k) == 'string' then
+          nvim_lsp[k].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = lsp,
+          }
+        else
+          nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+          }
+        end
+      end
+    end 
+    -- }}}
+  },
   {
     -- rust-tools {{{
     'simrat39/rust-tools.nvim', 
@@ -130,21 +212,13 @@ require("lazy").setup({
         vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         vim.keymap.set('n', '<leader>fz', builtin.spell_suggest, {})
-        --
+
         -- LSP
-        vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
-
-        vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
-
+        vim.keymap.set('n', '<leader>lr', builtin.lsp_references, {})
+        vim.keymap.set('n', '<leader>li', builtin.lsp_incoming_calls, {})
+        vim.keymap.set('n', '<leader>lo', builtin.lsp_outgoing_calls, {})
+        vim.keymap.set('n', '<leader>ls', builtin.lsp_document_symbols, {})
         -- }}}
-
     end
   },
   {
@@ -191,158 +265,119 @@ require("lazy").setup({
         }
 
         -- }}}
-      end,
+      end
   },
-
-
-  'nvim-treesitter/nvim-treesitter',
-  { 'nvim-lualine/lualine.nvim', 
-  opts = {
-    options = {
-      icons_enabled = true,
-      theme = 'auto',
-      component_separators = { left = '|', right = '|'},
-      section_separators = { left = '', right = ''},
-      disabled_filetypes = {
-        statusline = {},
-        winbar = {},
+  {
+    'nvim-treesitter/nvim-treesitter',
+    opts = {
+      -- A list of parser names, or "all" (the five listed parsers should always be installed)
+      ensure_installed = {
+        "rust",
+        "terraform",
+        "go",
+        "lua",
+        "vim",
+        "gitcommit",
+        "query"
       },
-      ignore_focus = {},
-      always_divide_middle = true,
-      globalstatus = true,
-      refresh = {
-        statusline = 1000,
-        tabline = 1000,
-        winbar = 1000,
+      sync_install = false,
+      auto_install = true,
+      highlight = {
+        enable = true,
       }
-    },
-    sections = {
-      lualine_a = {'mode'},
-      lualine_b = {'branch', 'diagnostics'},
-      lualine_c = {'filename'},
-      lualine_x = {'encoding', 'fileformat', 'filetype'},
-      lualine_y = {'progress'},
-      lualine_z = {'location'}
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {'filename'},
-      lualine_x = {'location'},
-      lualine_y = {},
-      lualine_z = {}
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-  }
+    }
+  },
+  {
+    -- lualine {{{
+    'nvim-lualine/lualine.nvim', 
+    opts = {
+      options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+          statusline = {},
+          winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = true,
+        refresh = {
+          statusline = 1000,
+          tabline = 1000,
+          winbar = 1000,
+        }
+      },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+      },
+      tabline = {},
+      winbar = {},
+      inactive_winbar = {},
+      extensions = {}
+    }
+    -- }}}
+  },
+  { 
+    -- gitsigns {{{
+    'lewis6991/gitsigns.nvim',
+    opts = {
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          -- Navigation
+          map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          -- Actions
+          map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+          map('n', '<leader>hS', gs.stage_buffer)
+          map('n', '<leader>hu', gs.undo_stage_hunk)
+          map('n', '<leader>hR', gs.reset_buffer)
+          map('n', '<leader>hp', gs.preview_hunk)
+          map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+          map('n', '<leader>tb', gs.toggle_current_line_blame)
+          map('n', '<leader>hd', gs.diffthis)
+          map('n', '<leader>hD', function() gs.diffthis('~') end)
+          map('n', '<leader>td', gs.toggle_deleted)
+
+          -- Text object
+          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end
+      }
+      -- }}}
   },
 })
 
--- }}}
-
-
--- LSP {{{
-
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
--- LSP settings
-local nvim_lsp = require 'lspconfig'
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- Enable the following language servers
-local servers = {
-    'pyright',
-    ['gopls'] = {
-        gopls = {
-            env = {
-                GOPACKAGESDRIVER = './tools/gopackagesdriver.sh'
-            },
-            directoryFilters = {
-                "-bazel-bin",
-                "-bazel-out",
-                "-bazel-testlogs",
-                "-bazel-k8s",
-                "-bazel-infrastructure",
-            },
-        }
-    },
-    'tsserver',
-    'tflint',
-    'jsonnet_ls'
-}
-
-for k, lsp in pairs(servers) do
-    if type(k) == 'string' then
-        nvim_lsp[k].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = lsp,
-        }
-    else
-        nvim_lsp[lsp].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end
-end
-
--- }}}
-
--- Treesitter {{{
-
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = {
-    "rust",
-    "terraform",
-    "go",
-    "lua",
-    "vim",
-    "gitcommit",
-    "query"
-  },
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true,
-  }
-}
-
--- }}}
 
 -- vim: set sw=2 ts=2 ft=lua expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
