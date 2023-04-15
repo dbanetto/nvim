@@ -1,25 +1,249 @@
--- Telescope
-require('telescope').setup {
-    defaults = {
-        mappings = {
-            i = {
-                ['<C-u>'] = false,
-                ['<C-d>'] = false,
-            },
-        },
-    },
-}
--- Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+-- Lazy.nvim Bootstrap {{{
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
+--  }}}
+
+-- Plugins {{{
+
+require("lazy").setup({
+  { "challenger-deep-theme/vim",
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- load the colorscheme here
+      vim.cmd([[colorscheme challenger_deep]])
+    end,
+  },
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+  { "goolord/alpha-nvim",
+    config = function()
+      require('alpha').setup(require'alpha.themes.startify'.config)
+    end
+  },
+  { 
+    -- barbar {{{
+    'romgrk/barbar.nvim',
+    opts = {
+      -- Disable animations
+      animation = false,
+      -- Excludes buffers from the tabline
+      exclude_ft = {'netrw'},
+      exclude_name = {'package.json'},
+    },
+    config = function() 
+      local opts = { noremap = true, silent = true }
+      -- Move to previous/next
+      vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+      vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+      vim.keymap.set('n', '[b', '<Cmd>BufferPrevious<CR>', opts)
+      vim.keymap.set('n', ']b', '<Cmd>BufferNext<CR>', opts)
+
+      -- Re-order to previous/next
+      vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+      vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+      -- Goto buffer in position...
+      vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+      vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+      vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+      vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+      vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+      vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+      vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+      vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+      vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+      vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+      -- Pin/unpin buffer
+      vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+      -- Close buffer
+      vim.keymap.set('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+      -- Wipeout buffer
+      --                 :BufferWipeout
+      -- Close commands
+      --                 :BufferCloseAllButCurrent
+      --                 :BufferCloseAllButPinned
+      --                 :BufferCloseAllButCurrentOrPinned
+      --                 :BufferCloseBuffersLeft
+      --                 :BufferCloseBuffersRight
+      -- Magic buffer-picking mode
+      vim.keymap.set('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+      -- Sort automatically by...
+      vim.keymap.set('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+      vim.keymap.set('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+      vim.keymap.set('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+      vim.keymap.set('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+    end
+    -- }}}
+  },
+  'neovim/nvim-lspconfig',
+  {
+    -- rust-tools {{{
+    'simrat39/rust-tools.nvim', 
+    config = function() 
+      local rt = require("rust-tools")
+      rt.setup({
+        server = {
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          end
+        },
+      })
+    end
+    -- }}}
+  },
+
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ['<C-u>'] = false,
+            ['<C-d>'] = false,
+          },
+        },
+      },
+    },
+    config = function() 
+      -- Telescope {{{
+        local builtin = require('telescope.builtin')
+        -- Add leader shortcuts
+        vim.keymap.set('n', '<leader><space>', builtin.resume, {})
+        vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        vim.keymap.set('n', '<leader>fz', builtin.spell_suggest, {})
+        --
+        -- LSP
+        vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
+
+        vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+
+        -- }}}
+
+    end
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    -- load cmp on InsertEnter
+    event = "InsertEnter",
+    -- these dependencies will only be loaded when cmp loads
+    -- dependencies are always lazy-loaded unless specified otherwise
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+    },
+    config = function()
+      -- nvim-cmp {{{
+        local cmp = require 'cmp'
+        cmp.setup {
+          mapping = cmp.mapping.preset.insert({
+            ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<CR>'] = cmp.mapping.confirm {
+              behavior = cmp.ConfirmBehavior.Replace,
+              select = true,
+            },
+            ['<Tab>'] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                fallback()
+              end
+            end, { 'i', 's' }),
+            ['<S-Tab>'] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                fallback()
+              end
+            end, { 'i', 's' }),
+          }),
+          sources = {
+            { name = 'nvim_lsp' },
+            { name = 'buffer' },
+          },
+        }
+
+        -- }}}
+      end,
+  },
+
+
+  'nvim-treesitter/nvim-treesitter',
+  { 'nvim-lualine/lualine.nvim', 
+  opts = {
+    options = {
+      icons_enabled = true,
+      theme = 'auto',
+      component_separators = { left = '|', right = '|'},
+      section_separators = { left = '', right = ''},
+      disabled_filetypes = {
+        statusline = {},
+        winbar = {},
+      },
+      ignore_focus = {},
+      always_divide_middle = true,
+      globalstatus = true,
+      refresh = {
+        statusline = 1000,
+        tabline = 1000,
+        winbar = 1000,
+      }
+    },
+    sections = {
+      lualine_a = {'mode'},
+      lualine_b = {'branch', 'diagnostics'},
+      lualine_c = {'filename'},
+      lualine_x = {'encoding', 'fileformat', 'filetype'},
+      lualine_y = {'progress'},
+      lualine_z = {'location'}
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {'filename'},
+      lualine_x = {'location'},
+      lualine_y = {},
+      lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+  }
+  },
+})
+
+-- }}}
+
+
+-- LSP {{{
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -62,7 +286,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Enable the following language servers
 local servers = {
-    'rust_analyzer',
     'pyright',
     ['gopls'] = {
         gopls = {
@@ -98,49 +321,9 @@ for k, lsp in pairs(servers) do
     end
 end
 
--- luasnip setup
-local luasnip = require 'luasnip'
+-- }}}
 
--- nvim-cmp setup
-local cmp = require 'cmp'
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
+-- Treesitter {{{
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -160,11 +343,6 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
--- Set barbar's options
-require'barbar'.setup {
-  -- Disable animations
-  animation = false,
-  -- Excludes buffers from the tabline
-  exclude_ft = {'netrw'},
-  exclude_name = {'package.json'},
-}
+-- }}}
+
+-- vim: set sw=2 ts=2 ft=lua expandtab fdm=marker fmr={{{,}}} fdl=0 fdls=-1:
