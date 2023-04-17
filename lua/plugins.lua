@@ -171,6 +171,7 @@ require("lazy").setup({
   {
     -- rust-tools {{{
     'simrat39/rust-tools.nvim', 
+    ft = "rust",
     config = function() 
       local rt = require("rust-tools")
       rt.setup({
@@ -229,12 +230,19 @@ require("lazy").setup({
     -- dependencies are always lazy-loaded unless specified otherwise
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
     },
     config = function()
       -- nvim-cmp {{{
         local cmp = require 'cmp'
         cmp.setup {
+          snippet = {
+            -- REQUIRED - you must specify a snippet engine
+            expand = function(args)
+              require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            end,
+          },
           mapping = cmp.mapping.preset.insert({
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -260,7 +268,7 @@ require("lazy").setup({
           }),
           sources = {
             { name = 'nvim_lsp' },
-            { name = 'buffer' },
+            { name = 'luasnip' },
           },
         }
 

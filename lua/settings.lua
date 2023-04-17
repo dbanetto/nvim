@@ -23,6 +23,7 @@ vim.opt.splitright = true
 
 -- Buffer
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.hidden = true
 vim.opt.autoread = true
 vim.opt.showmode = false
