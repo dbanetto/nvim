@@ -23,6 +23,9 @@ require("lazy").setup({
       vim.cmd([[colorscheme challenger_deep]])
     end,
   },
+  { "tpope/vim-vinegar" },
+  { "tpope/vim-surround" },
+  { "tpope/vim-commentary" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "goolord/alpha-nvim",
     config = function()
@@ -354,13 +357,13 @@ require("lazy").setup({
           end
 
           -- Navigation
-          map('n', ']c', function()
+          map('n', ']h', function()
             if vim.wo.diff then return ']c' end
             vim.schedule(function() gs.next_hunk() end)
             return '<Ignore>'
           end, {expr=true})
 
-          map('n', '[c', function()
+          map('n', '[h', function()
             if vim.wo.diff then return '[c' end
             vim.schedule(function() gs.prev_hunk() end)
             return '<Ignore>'

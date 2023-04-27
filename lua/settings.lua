@@ -3,10 +3,6 @@
 -- Leader
 vim.g.mapleader = " "
 
--- Dsiable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Window settings 
 vim.opt.title = true
 vim.opt.cursorline = true
@@ -39,6 +35,34 @@ vim.opt.swapfile = false
 -- Indent
 vim.opt.autoindent = true
 vim.opt.copyindent = true
+
+-- Tab
+vim.opt.smarttab = true
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
+
+-- Warp
+vim.opt.display = 'lastline'
+vim.opt.formatoptions = 'tcroql'
+vim.opt.linebreak = true
+vim.opt.joinspaces = false
+vim.opt.wrap = true
+vim.opt.textwidth = 0
+
+-- Folding
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevelstart = 1
+
+-- Undo file
+vim.opt.undofile = true
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 1000
+
+-- List characters
+vim.opt.listchars= { tab='▸ ', eol='¬', trail='⋅', extends='❯', precedes='❮' }
+vim.opt.showbreak = '↪'
 
 -- diff
 table.insert(vim.opt.diffopt, "filter")
