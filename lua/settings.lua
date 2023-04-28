@@ -115,9 +115,7 @@ vim.opt.wildignore = {
 -- show result of command as you go
 vim.opt.inccommand = 'nosplit'
 
--- list chars
-
--- undo
+vim.g.editorconfig = true
 
 --- }}}
 
