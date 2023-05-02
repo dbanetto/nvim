@@ -280,6 +280,7 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    main = 'nvim-treesitter.configs',
     opts = {
       -- A list of parser names, or "all" (the five listed parsers should always be installed)
       ensure_installed = {
