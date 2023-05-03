@@ -1,34 +1,3 @@
-" general
-set title
-set cursorline
-
-set spelllang=en
-set splitbelow
-set splitright
-set number
-set hidden
-set autoread
-set mouse=n
-set noshowmode
-
-" Disable back & swap
-set nobackup
-set nowritebackup
-set noswapfile
-
-" diff
-set diffopt+=iwhite
-set diffopt=filler
-
-" wildmode
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
-set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
-set wildignore+=*/node_modules/*
-set wildignore+=*.swp,*~,._*
-
 set wildmenu
 set path+=**
 
@@ -65,84 +34,11 @@ set wrap
 set textwidth=0
 let &sbr = nr2char(8618).' ' " Show ↪ at the beginning of wrapped lines
 
-" search
-set wrapscan
-set hlsearch
-set ignorecase
-set incsearch
-set magic
-set matchpairs+=<:>
-set matchtime=2
-set showmatch
-set smartcase
-
 " folding
 set foldmethod=indent
 set foldlevelstart=1
 
 set completeopt=menuone,noselect
-
-if exists('+termguicolors')
-  " gui colours
-  set termguicolors
-endif
-
-"" mappings
-nmap <space> <nop>
-let g:mapleader=" "
-
-" alternate insert escape
-imap jj <ESC>
-
-nmap <C-U> <C-U>zz
-nmap <C-D> <C-D>zz
-
-" stay in visual mode when indenting
-vmap > >gv
-vmap < <gv
-
-" neovim specific settings
-if has('nvim')
-  " terminal mappings
-  tmap <Esc> <C-\><C-n>
-
-  " pane navigation
-  tmap <c-h> <C-\><C-n><C-w>h
-  tmap <c-j> <C-\><C-n><C-w>j
-  tmap <c-k> <C-\><C-n><C-w>k
-  tmap <c-l> <C-\><C-n><C-w>l
-
-  " show result of command as you go
-  set inccommand=nosplit
-
-  " enter insert mode when entering terminals
-  au TermOpen * setlocal nonumber
-  autocmd BufWinEnter,WinEnter term://* startinsert
-endif
-
-" panel navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-
-" Keep search pattern at the center of the screen
-nmap <silent> n nzz
-nmap <silent> N Nzz
-nmap <silent> * *zz
-nmap <silent> # #zz
-nmap <silent> g* g*zz
-nmap <silent> g# g#zz
-
-" clear hlsearch
-nmap <silent> <leader>/ :let @/=""<CR>
-
-" cd to current file
-nmap <leader>cd :cd %:h<CR>:pwd<CR>
-
-" lazy write
-nmap <leader>w :w<CR>
-nmap <leader>W :w!<CR>
 
 " <x> at EOL + remove trailing whitespace
 nmap <silent> <leader>; mbV:s/\s*$/;/<CR>:let @/=""<CR>`b
@@ -152,9 +48,6 @@ nmap <silent> <leader>. mbV:s/\s*$/./<CR>:let @/=""<CR>`b
 "" commands
 command! W w!
 command! Q q!
-
-"" yank to end of line
-nmap Y y$
 
 "" autocmd
 " normal mode when focus is lost
