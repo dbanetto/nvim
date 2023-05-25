@@ -77,10 +77,10 @@ require("lazy").setup({
       --                 :BufferCloseBuffersLeft
       --                 :BufferCloseBuffersRight
       -- Magic buffer-picking mode
+      vim.keymap.set('n', '<Space>bd', '<Cmd>BufferWipeout<CR>', opts)
       vim.keymap.set('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
       -- Sort automatically by...
       vim.keymap.set('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-      vim.keymap.set('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
       vim.keymap.set('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
       vim.keymap.set('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
     end
