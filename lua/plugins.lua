@@ -107,6 +107,22 @@ require("lazy").setup({
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+        -- Format on save
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format { async = false }
+          end
+        })
+
+        vim.api.nvim_create_autocmd('BufWritePre', {
+          buffer = bufnr,
+          pattern = '*.go',
+          callback = function()
+            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+          end
+        })
+
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
