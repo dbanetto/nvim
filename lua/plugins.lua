@@ -334,7 +334,7 @@ require("lazy").setup({
         },
         ignore_focus = {},
         always_divide_middle = true,
-        globalstatus = true,
+        globalstatus = false,
         refresh = {
           statusline = 1000,
           tabline = 1000,
@@ -344,7 +344,7 @@ require("lazy").setup({
       sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diagnostics'},
-        lualine_c = {'filename'},
+        lualine_c = {'%f'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
@@ -352,7 +352,7 @@ require("lazy").setup({
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
+        lualine_c = {'%F'},
         lualine_x = {'location'},
         lualine_y = {},
         lualine_z = {}
