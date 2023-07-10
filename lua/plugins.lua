@@ -167,7 +167,11 @@ require("lazy").setup({
         },
         'tsserver',
         'tflint',
-        'jsonnet_ls'
+        [ 'jsonnet_ls' ] = {
+         formatting = {
+          StringStyle = "double",
+         },
+        },
       }
 
       for k, lsp in pairs(servers) do
