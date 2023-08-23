@@ -115,13 +115,13 @@ require("lazy").setup({
           end
         })
 
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          buffer = bufnr,
-          pattern = '*.go',
-          callback = function()
-            vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-          end
-        })
+        -- Disablied as it causes a pile up of errors
+        -- vim.api.nvim_create_autocmd('BufWritePre', {
+        --   pattern = '*.go',
+        --   callback = function()
+        --     vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+        --   end
+        -- })
 
         -- Mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -301,6 +301,7 @@ require("lazy").setup({
   {
     'nvim-treesitter/nvim-treesitter',
     main = 'nvim-treesitter.configs',
+    build = ':TSUpdate', 
     opts = {
       -- A list of parser names, or "all" (the five listed parsers should always be installed)
       ensure_installed = {

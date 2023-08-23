@@ -148,6 +148,12 @@ vim.keymap.set('n', '<C-j>', '<C-w>j')
 vim.keymap.set('n', '<C-k>', '<C-w>k')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
 
+-- tab navigation
+vim.keymap.set('n', '[t', ':tabprevious<CR>')
+vim.keymap.set('n', ']t', ':tabnext<CR>')
+vim.keymap.set('n', '<leader>tn', ':tabnew<CR>')
+vim.keymap.set('n', '<leader>tc', ':tabclose<CR>')
+
 -- Keep search pattern at the center of the screen
 vim.keymap.set('n', 'n', 'nzz', { silent = true })
 vim.keymap.set('n', 'N', 'Nzz', { silent = true })
@@ -162,10 +168,15 @@ vim.keymap.set('n', '<leader>/', ':let @/=""<CR>')
 -- lazy write
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 
+local filetype_quit = {
+  ['ql'] = true,
+  ['netrw'] = true,
+}
+
 vim.keymap.set('n', 'q', function()
   local buf = vim.api.nvim_win_get_buf(0)
-  if vim.bo[buf].readonly then
-    return ':close<CR>'
+  if vim.bo[buf].readonly or filetype_quit[vim.bo[buf].filetype] then
+    return ':BufferDelete<CR>'
   else
     return 'q'
   end
