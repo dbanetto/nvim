@@ -168,6 +168,9 @@ vim.keymap.set('n', '<leader>/', ':let @/=""<CR>')
 -- lazy write
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 
+-- Attempt to prevent netrw bugs
+vim.g.netrw_fastbrowse  = 0
+
 local filetype_quit = {
   ['ql'] = true,
   ['netrw'] = true,
@@ -176,7 +179,7 @@ local filetype_quit = {
 vim.keymap.set('n', 'q', function()
   local buf = vim.api.nvim_win_get_buf(0)
   if vim.bo[buf].readonly or filetype_quit[vim.bo[buf].filetype] then
-    return ':BufferDelete<CR>'
+    return ':close<CR>'
   else
     return 'q'
   end
